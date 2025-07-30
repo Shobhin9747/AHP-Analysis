@@ -1,4 +1,3 @@
-<!-- src/components/Drawer.vue -->
 <template>
   <aside
     :class="[
@@ -7,7 +6,7 @@
       'bg-gradient-to-b from-slate-800 via-indigo-900 to-slate-900',
     ]"
   >
-    <!-- Logo and Toggle -->
+    <!-- Logo & Toggle -->
     <div class="flex items-center justify-between p-4 border-b border-white/10">
       <h2 v-if="!drawerStore.isCollapsed" class="text-lg font-semibold">
         AHP Analysis
@@ -22,37 +21,15 @@
 
     <!-- Navigation -->
     <ul class="mt-6 space-y-1 px-2">
-      <li>
+      <li v-for="item in menuItems" :key="item.name">
         <router-link
-          to="/app"
+          :to="item.path"
           class="flex items-center gap-3 p-3 rounded-md transition"
           active-class="bg-white/10"
           exact-active-class="bg-white/20"
         >
-          <HomeIcon class="w-5 h-5" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm">DashBoard</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link
-          to="/app/employee"
-          class="flex items-center gap-3 p-3 rounded-md transition"
-          active-class="bg-white/10"
-          exact-active-class="bg-white/20"
-        >
-          <InformationCircleIcon class="w-5 h-5" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm">Employee</span>
-        </router-link>
-      </li>
-      <li>
-        <router-link
-          to="/app/settings"
-          class="flex items-center gap-3 p-3 rounded-md transition"
-          active-class="bg-white/10"
-          exact-active-class="bg-white/20"
-        >
-          <Cog6ToothIcon class="w-5 h-5" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm">Settings</span>
+          <component :is="item.icon" class="w-5 h-5" />
+          <span v-if="!drawerStore.isCollapsed" class="text-sm">{{ item.name }}</span>
         </router-link>
       </li>
     </ul>
@@ -60,11 +37,56 @@
 </template>
 
 <script lang="ts" setup>
-import { useDrawerStore } from "../store/Drawer";
+import { computed } from 'vue';
+import { useDrawerStore } from '../store/Drawer';
+import { useAuthStore } from '../store/auth';
+
 import {
   HomeIcon,
   InformationCircleIcon,
   Cog6ToothIcon,
-} from "@heroicons/vue/24/outline";
+  GlobeAltIcon,
+  BuildingOfficeIcon,
+  ClipboardDocumentListIcon,
+  CurrencyDollarIcon,
+  CalendarDaysIcon,
+  ClockIcon,
+} from '@heroicons/vue/24/outline';
+
 const drawerStore = useDrawerStore();
+const auth = useAuthStore();
+
+const menuItems = computed(() => {
+  const role = auth.user?.role;
+
+  if (role === 'admin') {
+    return [
+      { name: 'Dashboard', path: '/app', icon: HomeIcon },
+      { name: 'Jurisdiction', path: '/app/jurisdiction', icon: GlobeAltIcon },
+      { name: 'Company', path: '/app/company', icon: BuildingOfficeIcon },
+      { name: 'Contract Type', path: '/app/contract-type', icon: ClipboardDocumentListIcon },
+      { name: 'Pay Component', path: '/app/pay-component', icon: CurrencyDollarIcon },
+      { name: 'Holiday Policy', path: '/app/holiday-policy', icon: CalendarDaysIcon },
+      { name: 'Working Pattern', path: '/app/working-pattern', icon: ClockIcon },
+      { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
+    ];
+  }
+
+  if (role === 'director') {
+    return [
+      { name: 'Dashboard', path: '/app', icon: HomeIcon },
+      { name: 'Employee', path: '/app/employee', icon: InformationCircleIcon },
+      { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
+    ];
+  }
+
+  if (role === 'employee') {
+    return [
+      { name: 'Dashboard', path: '/app', icon: HomeIcon },
+      { name: 'Profile', path: '/app/employee', icon: InformationCircleIcon },
+    ];
+  }
+
+  return [];
+});
 </script>
