@@ -1,15 +1,15 @@
 <!-- layouts/MainLayout.vue -->
 <template>
-  <div class="flex">
+  <div class="flex h-screen">
     <Drawer />
     <div
       :class="[
-        'transition-all duration-300 flex-1 overflow-y-auto min-h-screen',
+        'flex flex-col flex-1 transition-all duration-300',
         drawerStore.isCollapsed ? 'ml-16' : 'ml-64'
       ]"
     >
       <Navbar />
-      <main class="p-3">
+      <main class="flex-1 overflow-y-auto">
         <router-view />
       </main>
     </div>

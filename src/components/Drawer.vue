@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 import { useDrawerStore } from '../store/Drawer';
-import { useAuthStore } from '../store/auth';
+import { useAuthStore } from '../store/Auth';
 
 import {
   HomeIcon,
