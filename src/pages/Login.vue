@@ -66,7 +66,7 @@ const mockUsers = [
 function mockLogin(email: string, password: string) {
 
   return new Promise((resolve,reject)=>{
-     setTimeout(()=>{
+    
       const user = mockUsers.find((user)=> user.email === email && user.password === password);
       if(user){
         let userData = { email: user.email, role: user.role }
@@ -74,7 +74,6 @@ function mockLogin(email: string, password: string) {
       }else{
         reject('Invalid email or password');
       }
-     },800) 
   })
 }
 
@@ -82,8 +81,7 @@ async function handleLogin() {
   error.value = '';
   try {
     const user = await mockLogin(email.value, password.value) as User;
-    console.log('Logged in as:', user);
-    let token = 'mock-token'; // Simulate a token
+    let token = 'mock-token';
     auth.login(user,token);
     router.push('/app');
   } catch (err) {
