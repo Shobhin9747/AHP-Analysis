@@ -1,13 +1,13 @@
 <template>
   <aside
     :class="[
-      'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg',
+      'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
       drawerStore.isCollapsed ? 'w-16' : 'w-64',
       'bg-gradient-to-b from-slate-800 via-indigo-900 to-slate-900',
     ]"
   >
     <!-- Logo & Toggle -->
-    <div class="flex items-center justify-between p-4 border-b border-white/10">
+    <div class="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
       <h2 v-if="!drawerStore.isCollapsed" class="text-lg font-semibold">
         AHP Analysis
       </h2>
@@ -20,16 +20,17 @@
     </div>
 
     <!-- Navigation -->
-    <ul class="mt-6 space-y-1 px-2">
+    <ul class="flex-1 overflow-y-auto mt-6 space-y-1 px-2 pb-4 custom-scrollbar">
       <li v-for="item in menuItems" :key="item.name">
         <router-link
           :to="item.path"
-          class="flex items-center gap-3 p-3 rounded-md transition"
-          active-class="bg-white/10"
-          exact-active-class="bg-white/20"
+          :class="[
+            'flex items-center gap-3 p-3 rounded-md transition',
+            isMenuActive(item) ? 'bg-white/10' : ''
+          ]"
         >
-          <component :is="item.icon" class="w-5 h-5" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm">{{ item.name }}</span>
+          <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
+          <span v-if="!drawerStore.isCollapsed" class="text-sm truncate">{{ item.name }}</span>
         </router-link>
       </li>
     </ul>
@@ -38,6 +39,7 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { useDrawerStore } from '../store/Drawer';
 import { useAuthStore } from '../store/Auth';
 
@@ -55,6 +57,7 @@ import {
 
 const drawerStore = useDrawerStore();
 const auth = useAuthStore();
+const route = useRoute();
 
 const menuItems = computed(() => {
   const role = auth.user?.role;
@@ -89,4 +92,22 @@ const menuItems = computed(() => {
 
   return [];
 });
+
+function isMenuActive(item: { path: string }) {
+  if (item.path === '/app') {
+    return route.path === '/app' || route.path === '/app/';
+  }
+  return route.path.startsWith(item.path);
+}
 </script>
+
+<style scoped>
+.custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+</style>

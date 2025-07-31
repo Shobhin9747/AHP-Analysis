@@ -35,7 +35,7 @@
           />
           <span class="absolute bottom-0 right-0 w-3 h-3 bg-green-400 border-2 border-white rounded-full"></span>
         </div>
-        <div class="hidden md:flex flex-col leading-tight text-right">
+        <div class="hidden md:flex flex-col leading-tight">
           <span class="text-sm font-semibold text-gray-800">{{ auth.user?.role }}</span>
           <span class="text-xs text-gray-500">{{ auth.user?.email }}</span>
         </div>
