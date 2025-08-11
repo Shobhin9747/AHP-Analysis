@@ -6,19 +6,24 @@
     ]"
   >
     <!-- Logo & Toggle -->
-   <div class="flex items-center justify-center p-4 border-b border-white/10 flex-shrink-0">
-
+    <div
+      :class="[
+        'flex items-center gap-2 p-4 border-b border-white/10 flex-shrink-0',
+        drawerStore.isCollapsed ? 'justify-center' : 'justify-start'
+      ]"
+    >
       <button
         @click="drawerStore.toggle"
-        class="text-[#023769] text-xl focus:outline-none cursor-pointer"
+        class="text-[#023769] p-1 rounded focus:outline-none cursor-pointer hover:bg-white/10"
+        aria-label="Toggle menu"
       >
-        ☰
+        <Bars3Icon class="w-6 h-6" />
       </button>
       <img
         v-if="!drawerStore.isCollapsed"
         :src="logoImage"
         alt="Company Logo"
-        class="ml-4 h-7 object-contain"
+        class="h-7 object-contain"
       />
     </div>
 
@@ -64,17 +69,7 @@ import { useRoute } from "vue-router";
 import { useDrawerStore } from "../store/Drawer";
 import { useAuthStore } from "../store/Auth";
 
-import {
-  HomeIcon,
-  InformationCircleIcon,
-  Cog6ToothIcon,
-  GlobeAltIcon,
-  BuildingOfficeIcon,
-  ClipboardDocumentListIcon,
-  CurrencyDollarIcon,
-  CalendarDaysIcon,
-  ClockIcon,
-} from "@heroicons/vue/24/outline";
+import { HomeIcon, InformationCircleIcon, Cog6ToothIcon, Bars3Icon } from "@heroicons/vue/24/outline";
 import CustomIcon from "./Icons/CustomIcon.vue";
 import logoImage from "../assets/logo.png"
 
