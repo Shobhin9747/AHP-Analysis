@@ -3,45 +3,66 @@
     :class="[
       'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
       drawerStore.isCollapsed ? 'w-16' : 'w-64',
-      'bg-gradient-to-b from-slate-800 via-indigo-900 to-slate-900',
     ]"
   >
     <!-- Logo & Toggle -->
-    <div class="flex items-center justify-between p-4 border-b border-white/10 flex-shrink-0">
-      <h2 v-if="!drawerStore.isCollapsed" class="text-lg font-semibold">
-        AHP Analysis
-      </h2>
+   <div class="flex items-center justify-center p-4 border-b border-white/10 flex-shrink-0">
+
       <button
         @click="drawerStore.toggle"
-        class="text-white text-xl focus:outline-none cursor-pointer"
+        class="text-[#023769] text-xl focus:outline-none cursor-pointer"
       >
         ☰
       </button>
+      <img
+        v-if="!drawerStore.isCollapsed"
+        :src="logoImage"
+        alt="Company Logo"
+        class="ml-4 h-7 object-contain"
+      />
     </div>
 
     <!-- Navigation -->
-    <ul class="flex-1 overflow-y-auto mt-6 space-y-1 px-2 pb-4 custom-scrollbar">
+    <ul
+      class="flex-1 overflow-y-auto mt-6 space-y-1 px-2 pb-4 custom-scrollbar"
+    >
       <li v-for="item in menuItems" :key="item.name">
         <router-link
           :to="item.path"
+          :title="drawerStore.isCollapsed ? item.name : ''"
           :class="[
             'flex items-center gap-3 p-3 rounded-md transition',
-            isMenuActive(item) ? 'bg-white/10' : ''
+            isMenuActive(item) ? 'text-[#022652] font-medium' : 'text-[#022652] font-normal',
           ]"
         >
           <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm truncate">{{ item.name }}</span>
+          <span v-if="!drawerStore.isCollapsed" class="text-sm truncate">{{
+            item.name
+          }}</span>
         </router-link>
       </li>
     </ul>
+    <div
+      class="flex items-center gap-3 p-4 border-t border-white/10 flex-shrink-0"
+    >
+      <img
+        src="https://i.pravatar.cc/40"
+        alt="User Avatar"
+        class="w-8 h-8 rounded-full ring-2 ring-indigo-400 group-hover:ring-4 transition-all duration-300 shadow"
+      />
+      <div v-if="!drawerStore.isCollapsed">
+        <p class="text-sm font-medium text-gray-400">{{ auth.user?.email }}</p>
+        <p class="text-xs text-gray-400">{{ auth.user?.role }}</p>
+      </div>
+    </div>
   </aside>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useDrawerStore } from '../store/Drawer';
-import { useAuthStore } from '../store/Auth';
+import { computed } from "vue";
+import { useRoute } from "vue-router";
+import { useDrawerStore } from "../store/Drawer";
+import { useAuthStore } from "../store/Auth";
 
 import {
   HomeIcon,
@@ -53,7 +74,9 @@ import {
   CurrencyDollarIcon,
   CalendarDaysIcon,
   ClockIcon,
-} from '@heroicons/vue/24/outline';
+} from "@heroicons/vue/24/outline";
+import CustomIcon from "./Icons/CustomIcon.vue";
+import logoImage from "../assets/logo.png"
 
 const drawerStore = useDrawerStore();
 const auth = useAuthStore();
@@ -62,31 +85,47 @@ const route = useRoute();
 const menuItems = computed(() => {
   const role = auth.user?.role;
 
-  if (role === 'admin') {
+  if (role === "admin") {
     return [
-      { name: 'Dashboard', path: '/app', icon: HomeIcon },
-      { name: 'Jurisdiction', path: '/app/jurisdiction', icon: GlobeAltIcon },
-      { name: 'Company', path: '/app/company', icon: BuildingOfficeIcon },
-      { name: 'Contract Type', path: '/app/contract-type', icon: ClipboardDocumentListIcon },
-      { name: 'Pay Component', path: '/app/pay-component', icon: CurrencyDollarIcon },
-      { name: 'Holiday Policy', path: '/app/holiday-policy', icon: CalendarDaysIcon },
-      { name: 'Working Pattern', path: '/app/working-pattern', icon: ClockIcon },
-      { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
+      { name: "Dashboard", path: "/app", icon: CustomIcon },
+      { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
+      { name: "Company", path: "/app/company", icon: CustomIcon },
+      {
+        name: "Contract Type",
+        path: "/app/contract-type",
+        icon: CustomIcon,
+      },
+      {
+        name: "Pay Component",
+        path: "/app/pay-component",
+        icon: CustomIcon,
+      },
+      {
+        name: "Holiday Policy",
+        path: "/app/holiday-policy",
+        icon: CustomIcon,
+      },
+      {
+        name: "Working Pattern",
+        path: "/app/working-pattern",
+        icon: CustomIcon,
+      },
+      { name: "Settings", path: "/app/settings", icon: CustomIcon },
     ];
   }
 
-  if (role === 'director') {
+  if (role === "director") {
     return [
-      { name: 'Dashboard', path: '/app', icon: HomeIcon },
-      { name: 'Employee', path: '/app/employee', icon: InformationCircleIcon },
-      { name: 'Settings', path: '/app/settings', icon: Cog6ToothIcon },
+      { name: "Dashboard", path: "/app", icon: HomeIcon },
+      { name: "Employee", path: "/app/employee", icon: InformationCircleIcon },
+      { name: "Settings", path: "/app/settings", icon: Cog6ToothIcon },
     ];
   }
 
-  if (role === 'employee') {
+  if (role === "employee") {
     return [
-      { name: 'Dashboard', path: '/app', icon: HomeIcon },
-      { name: 'Profile', path: '/app/employee', icon: InformationCircleIcon },
+      { name: "Dashboard", path: "/app", icon: HomeIcon },
+      { name: "Profile", path: "/app/employee", icon: InformationCircleIcon },
     ];
   }
 
@@ -94,8 +133,8 @@ const menuItems = computed(() => {
 });
 
 function isMenuActive(item: { path: string }) {
-  if (item.path === '/app') {
-    return route.path === '/app' || route.path === '/app/';
+  if (item.path === "/app") {
+    return route.path === "/app" || route.path === "/app/";
   }
   return route.path.startsWith(item.path);
 }
@@ -108,6 +147,6 @@ function isMenuActive(item: { path: string }) {
 }
 
 .custom-scrollbar::-webkit-scrollbar {
-  display: none; /* Safari and Chrome */
+  display: none;
 }
 </style>

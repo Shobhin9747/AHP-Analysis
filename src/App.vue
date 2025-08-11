@@ -9,7 +9,7 @@
 
 <style>
 body {
-  font-family: "Noto Sans", sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;

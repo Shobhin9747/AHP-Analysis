@@ -8,8 +8,8 @@
         drawerStore.isCollapsed ? 'ml-16' : 'ml-64'
       ]"
     >
-      <Navbar />
-      <main class="flex-1 overflow-y-auto">
+      <!-- <Navbar /> -->
+      <main class="flex-1 overflow-y-auto bg-gray-50">
         <router-view />
       </main>
     </div>

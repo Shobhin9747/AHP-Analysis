@@ -11,6 +11,7 @@ import PayComponent from "../pages/PayComponent.vue";
 import HolidayPolicy from "../pages/HolidayPolicy.vue";
 import WorkingPattern from "../pages/WorkingPattern.vue";
 import { useAuthStore } from "../store/Auth";
+import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
 
 const routes = [
   {
@@ -24,7 +25,7 @@ const routes = [
     meta: { requiresAuth: true },
     name: "App",
     children: [
-      { path: "", name: "Dashboard", component: Home },
+      { path: "", name: "Dashboard", component: HolidayPayOverview },
       { path: "employee", name: "Employee", component: Employee },
       { path: "settings", name: "Settings", component: Settings },
       { path: "jurisdiction", name: "Jurisdiction", component: Jurisdiction },

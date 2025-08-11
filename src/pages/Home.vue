@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4">
+  <div class="bg-gradient-to-br from-gray-50 to-blue-50 p-4">
    
 
     <!-- Salary Overview Cards -->
@@ -96,19 +96,19 @@
 
           <div class="space-y-3">
             <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
-              <span class="text-gray-600 font-medium text-sm">Total Weeks</span>
+              <span class="text-gray-600 font-small text-sm">Total Weeks</span>
               <span class="text-lg font-bold text-green-600">57 weeks</span>
             </div>
             <div class="flex justify-between items-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-              <span class="text-gray-600 font-medium text-sm">Eligible Weeks</span>
+              <span class="text-gray-600 font-small text-sm">Eligible Weeks</span>
               <span class="text-lg font-bold text-blue-600">53 weeks</span>
             </div>
             <div class="flex justify-between items-center p-3 bg-red-50 rounded-lg border border-red-200">
-              <span class="text-gray-600 font-medium text-sm">Ineligible Weeks</span>
+              <span class="text-gray-600 font-small text-sm">Ineligible Weeks</span>
               <span class="text-lg font-bold text-red-600">4 weeks</span>
             </div>
             <div class="flex justify-between items-center p-3 bg-green-50 rounded-lg border border-green-200">
-              <span class="text-gray-600 font-medium text-sm">Status</span>
+              <span class="text-gray-600 font-small text-sm">Status</span>
               <span class="text-xs font-bold text-green-600">✓ All Eligible</span>
             </div>
           </div>
