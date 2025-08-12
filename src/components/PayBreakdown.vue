@@ -1,6 +1,6 @@
 <template>
   <h3 class="text-xl font-semibold mb-4">52 Week Holiday Breakdown</h3>
-  <div class="bg-blue-100 shadow rounded-lg p-4 sm:p-6">
+  <div class="bg-[#EEF4F8] shadow rounded-lg p-4 sm:p-6">
     <!-- Mobile view -->
     <div class="block sm:hidden space-y-3">
       <div class="bg-white rounded-lg p-3">
