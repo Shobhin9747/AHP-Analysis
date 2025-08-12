@@ -18,7 +18,6 @@
 
 <script setup lang="ts">
 import Drawer from '../components/Drawer.vue';
-import Navbar from '../components/Navbar.vue';
 import { useDrawerStore } from '../store/Drawer'
 const drawerStore = useDrawerStore();
 </script>
