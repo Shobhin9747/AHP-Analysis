@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Login from '../pages/Login.vue';
 import MainLayout from '../pages/MainLayout.vue';
-import Home from '../pages/Home.vue';
 import Employee from "../pages/Employee.vue";
 import Settings from "../pages/Settings.vue";
 import Jurisdiction from "../pages/Jurisdiction.vue";

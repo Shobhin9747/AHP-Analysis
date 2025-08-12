@@ -1,47 +1,54 @@
 <template>
   <div class="p-3 sm:p-4 lg:p-5 space-y-4 sm:space-y-6 bg-gray-50">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6">
-      <!-- Left Section -->
-      <div class="lg:col-span-8 space-y-4 sm:space-y-6">
-       <h1 class="text-xl sm:text-2xl font-bold text-[#068EC6]">Holiday Pay</h1>
-        <div class="bg-white shadow rounded-lg p-4 sm:p-6">
-          <EmployeeCard />
+    <!-- Top Bar -->
+    <div class="flex items-center space-x-4 pb-2">
+      <h1 class="text-xl sm:text-2xl font-bold text-[#068EC6]">Holiday Pay</h1>
+      <div class="h-6 border-l border-gray-300"></div>
 
-          <!-- StatsCards Grid -->
-          <div class="mt-4 sm:mt-6">
-            <StatsCards />
-          </div>
-        </div>
-
-        <PayBreakdown />
-      </div>
-
-      <!-- Right Section -->
-      <div class="lg:col-span-4 space-y-3 sm:space-y-4">
-        <div class="bg-white shadow rounded-lg p-4">
-          <h2 class="text-lg sm:text-xl font-bold text-[#068EC6] mb-4">Weekly Status</h2>
-          <div class="space-y-3">
-            <WeekStatus
-              :week="1"
-              :amount="600"
-              :dates="'28 Jul 2025 - 05 Aug 2025'"
-            />
-            <WeekStatus
-              :week="2"
-              :amount="550"
-              :dates="'15 Jul 2025 - 21 Jul 2025'"
-            />
-           
-          </div>
-        </div>
+      <!-- Tabs -->
+      <div class="flex space-x-6">
+        <button
+          v-for="tab in tabs"
+          :key="tab"
+          @click="activeTab = tab"
+          :class="[
+            'pb-1 border-b-2',
+            activeTab === tab
+              ? 'border-[#002D53] font-semibold text-[#022652]'
+              : 'border-transparent text-gray-400'
+          ]"
+        >
+          {{ tab }}
+        </button>
       </div>
     </div>
+
+    <!-- Dynamic Content -->
+    <component :is="getComponent(activeTab)" />
   </div>
 </template>
 
 <script setup>
-import EmployeeCard from "../components/EmployeeCard.vue";
-import StatsCards from "../components/StatsCards.vue";
-import PayBreakdown from "../components/PayBreakdown.vue";
-import WeekStatus from "../components/WeekStatus.vue";
+import { ref } from "vue";
+
+// Import all 3 possible components
+import OverviewView from "./section/OverviewView.vue";
+import AnalyticsView from "./section/AnalyticsView.vue";
+import AhpFlowView from "./section/AhpFlowView.vue";
+
+const tabs = ["Overview", "Analytics", "AHP Flow"];
+const activeTab = ref("Overview");
+
+const getComponent = (tab) => {
+  switch (tab) {
+    case "Overview":
+      return OverviewView;
+    case "Analytics":
+      return AnalyticsView;
+    case "AHP Flow":
+      return AhpFlowView;
+    default:
+      return OverviewView;
+  }
+};
 </script>
