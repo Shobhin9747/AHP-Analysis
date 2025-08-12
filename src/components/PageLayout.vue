@@ -6,8 +6,8 @@
     </div>
 
     <!-- Right Section -->
-    <div class="lg:col-span-4 space-y-3 sm:space-y-4">
-      <div class="bg-white shadow rounded-lg p-4">
+    <div class="lg:col-span-4 space-y-2 sm:space-y-3">
+      <div class="bg-white shadow rounded-lg ">
        
         <div class="overflow-y-auto weekstatus-scrollbar" style="max-height: calc(100vh - 50px);">
           <WeekStatus :weeks="weekData" />

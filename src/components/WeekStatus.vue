@@ -9,7 +9,7 @@
       <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 sm:gap-0 mb-6">
         <div class="flex flex-col gap-2">
           <div class="flex items-center gap-2">
-            <h3 class="font-bold text-gray-900 text-lg">Week {{ weekData.week }}</h3>
+            <h3 class="font-bold text-gray-900 text-sm">Week {{ weekData.week }}</h3>
             <span
               class="bg-[#5EBA4F] text-white text-xs font-medium px-2 py-1 rounded-full flex items-center gap-1"
             >
@@ -39,20 +39,20 @@
       <!-- Unified grid for sm+ to ensure perfect header/data alignment -->
       <div class="hidden sm:grid [grid-template-columns:1.2fr_1fr_1fr_1fr] gap-x-4 gap-y-3">
         <!-- Headers -->
-        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium px-3 py-2 rounded-lg">
+        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium p-1  rounded-lg">
           <div class="grid grid-cols-[1fr_auto] items-center gap-2">
-            <span>Days</span>
+            <span class="whitespace-nowrap">Days</span>
             <div class="w-6 h-4 opacity-0"></div>
           </div>
         </div>
-        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium px-3 py-2 rounded-lg text-center">Regular</div>
-        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium px-3 py-2 rounded-lg text-center">Overtime</div>
-        <div class="bg-[#023769] text-white text-sm font-medium px-3 py-2 rounded-lg text-center">Total Hrs</div>
+        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium p-1 rounded-lg text-center whitespace-nowrap">Regular</div>
+        <div class="bg-[#E5EBEF] text-gray-700 text-sm font-medium p-1  rounded-lg text-center whitespace-nowrap">Overtime</div>
+        <div class="bg-[#023769] text-white text-sm font-medium p-1 rounded-lg text-center whitespace-nowrap">Total Hrs</div>
 
         <!-- Rows -->
         <template v-for="(day, index) in weekData.days" :key="index">
           <div class="grid grid-cols-[1fr_auto] items-center gap-2 min-w-0">
-            <span class="font-medium text-gray-900 text-sm">{{ day.name }}</span>
+            <span class="font-medium text-gray-900 text-sm whitespace-nowrap">{{ day.name }}</span>
             <div
               :class="[
                 'w-6 h-4 flex items-center justify-center text-[10px] font-bold text-white flex-shrink-0',
