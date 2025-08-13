@@ -28,7 +28,7 @@
 
       <div class="flex items-center justify-between gap-2">
         <h2 class="text-sm sm:text-base font-semibold text-[#022652]">Weekly Status</h2>
-        <div class="h-6 border-l border-gray-300"></div>
+        <div class="h-6 border-l-2 border-[#022652]"></div>
         <ArrowDownTrayIcon class="w-5 h-5 text-blue-500" />
         <h2 class="text-sm sm:text-base text-[#022652]">Download</h2>
       </div>
@@ -47,6 +47,7 @@ import OverviewView from "./section/OverviewView.vue";
 import AnalyticsView from "./section/AnalyticsView.vue";
 import AhpFlowView from "./section/AhpFlowView.vue";
 import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
+import { ViewColumnsIcon, ListBulletIcon } from '@heroicons/vue/24/outline'
 
 const tabs = ["Overview", "Analytics", "AHP Flow"];
 const activeTab = ref("Overview");
