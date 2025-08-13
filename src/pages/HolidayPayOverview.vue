@@ -1,6 +1,5 @@
 <template>
   <div class="p-3 sm:p-4 lg:p-5 space-y-4 sm:space-y-6 bg-gray-50">
-    <!-- Top Bar -->
     <div class="flex items-center justify-between pb-2">
       <div class="flex items-center space-x-4">
         <h1 class="text-xl sm:text-2xl font-bold text-[#068EC6]">
@@ -8,7 +7,6 @@
         </h1>
         <div class="h-6 border-l border-gray-300"></div>
 
-        <!-- Tabs -->
         <div class="flex space-x-6">
           <button
             v-for="tab in tabs"
@@ -33,16 +31,12 @@
         <h2 class="text-sm sm:text-base text-[#022652]">Download</h2>
       </div>
     </div>
-
-    <!-- Dynamic Content -->
     <component :is="getComponent(activeTab)" />
   </div>
 </template>
 
 <script setup>
 import { ref } from "vue";
-
-// Import all 3 possible components
 import OverviewView from "./section/OverviewView.vue";
 import AnalyticsView from "./section/AnalyticsView.vue";
 import AhpFlowView from "./section/AhpFlowView.vue";
