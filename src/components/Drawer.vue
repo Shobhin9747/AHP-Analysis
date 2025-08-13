@@ -2,7 +2,7 @@
   <aside
     :class="[
       'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
-      drawerStore.isCollapsed ? 'w-16' : 'w-62',
+      drawerStore.isCollapsed ? 'w-16' : 'w-60',
     ]"
   >
     <!-- Logo & Toggle -->
@@ -42,10 +42,18 @@
               : 'text-[#022652] font-normal',
           ]"
         >
-          <component :is="item.icon" class="w-5 h-5 flex-shrink-0" />
-          <span v-if="!drawerStore.isCollapsed" class="text-sm truncate">{{
-            item.name
-          }}</span>
+          <component
+            :is="item.icon"
+            class="w-5 h-5 flex-shrink-0"
+            :style="{ color: isMenuActive(item) ? '#022652' : '#BFD7E0' }"
+          />
+          <span
+            v-if="!drawerStore.isCollapsed"
+            class="text-sm truncate"
+            :style="{ color: isMenuActive(item) ? '#022652' : '#022652' }"
+          >
+            {{ item.name }}
+          </span>
         </router-link>
       </li>
     </ul>
