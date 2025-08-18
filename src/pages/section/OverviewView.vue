@@ -1,15 +1,15 @@
 <template>
   <PageLayout>
     <template #content>
-      <div class="bg-white shadow rounded-lg p-10 sm:p-6">
+      <div class="bg-white shadow rounded-lg p-6 sm:p-4">
         <EmployeeCard />
         <div
-          class="flex items-center justify-between bg-[#5EBA4F] text-white rounded-md mt-4 px-4 py-2 w-full"
+          class="flex items-center justify-between bg-[#5EBA4F] text-white rounded-md mt-3 px-3 py-2 w-full"
         >
-          <div class="flex items-center gap-3">
+          <div class="flex items-center gap-2">
             <svg
-              width="36"
-              height="30"
+              width="32"
+              height="28"
               viewBox="0 0 36 30"
               fill="none"
             >
@@ -18,21 +18,21 @@
                 fill="white"
               />
             </svg>
-            <span class="font-semibold">Weekly Average Holiday Pay</span>
+            <span class="font-semibold text-sm">Weekly Average Holiday Pay</span>
             <a
               href="#"
-              class="text-white text-sm underline hover:text-gray-100"
+              class="text-white text-xs underline hover:text-gray-100"
             >
               View Calculation
             </a>
           </div>
 
          
-          <div class="font-bold text-lg">£627.51</div>
+          <div class="font-bold text-base">£627.51</div>
         </div>
         
       </div>
-      <div class="mt-4 sm:mt-6">
+      <div class="mt-3 sm:mt-4">
         <StatsCards />
       </div>
       <PayBreakdown />
