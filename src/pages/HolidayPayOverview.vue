@@ -31,7 +31,10 @@
         <h2 class="text-sm sm:text-base text-[#022652]">Download</h2>
       </div>
     </div>
-    <component :is="getComponent(activeTab)" />
+    <keep-alive>
+  <component :is="getComponent(activeTab)" />
+</keep-alive>
+
   </div>
 </template>
 
