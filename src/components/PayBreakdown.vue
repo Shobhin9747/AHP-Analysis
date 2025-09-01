@@ -1,5 +1,12 @@
 <template>
-  <h3 class="text-xl font-semibold mb-4">52 Week Holiday Breakdown</h3>
+  <div class="flex justify-between items-center">
+    <h3 class="text-xl text-[#022652]  font-semibold mb-4">52 Week Holiday Breakdown</h3>
+    <div class="flex items-center gap-2">
+      <ArrowDownTrayIcon class="w-5 h-5 text-blue-500" />
+      <h2 class="text-sm sm:text-base text-[#022652]">Download</h2>
+    </div>
+  </div>
+
   <div class="bg-[#EEF4F8] shadow rounded-lg p-4 sm:p-6">
     <!-- Mobile view -->
     <div class="block sm:hidden space-y-3">
@@ -10,7 +17,7 @@
         </div>
         <div class="text-right text-lg font-semibold">£23,768.28</div>
       </div>
-      
+
       <div class="bg-white rounded-lg p-3">
         <div class="flex justify-between items-center mb-2">
           <span class="font-medium">Variable Pay</span>
@@ -18,7 +25,7 @@
         </div>
         <div class="text-right text-lg font-semibold">£8,862.36</div>
       </div>
-      
+
       <div class="bg-white rounded-lg p-3 border-2 border-green-200">
         <div class="flex justify-between items-center mb-2">
           <span class="font-semibold">Combined Total</span>
@@ -59,3 +66,7 @@
     </div>
   </div>
 </template>
+
+<script setup>
+import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
+</script>

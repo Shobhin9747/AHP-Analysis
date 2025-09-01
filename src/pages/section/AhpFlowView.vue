@@ -137,7 +137,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import PageLayout from "../../components/PageLayout.vue";
-import { generateSteps } from "../../utils/aiTextGenerator";
+
 
 const defaultSteps = [
   {

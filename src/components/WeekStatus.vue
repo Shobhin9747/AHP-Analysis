@@ -3,7 +3,7 @@
     <div 
       v-for="weekData in weeks" 
       :key="weekData.week" 
-      class="bg-white rounded-lg p-4"
+      class="bg-white shadow rounded-lg p-4"
     >
       <!-- Header Section -->
       <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2 sm:gap-0 mb-4">
@@ -39,7 +39,7 @@
       <!-- Unified grid for sm+ to ensure perfect header/data alignment -->
       <div class="hidden sm:grid [grid-template-columns:1.1fr_0.8fr_0.8fr_0.8fr] gap-x-2 gap-y-2">
         <!-- Headers -->
-        <div class="bg-[#E5EBEF] text-gray-700 text-xs font-medium p-1 rounded-lg">
+        <div class="bg-[#E5EBEF] text-gray-700 text-xs font-medium p-1 rounded-lg text-center">
           <div class="grid grid-cols-[1fr_auto] items-center gap-1">
             <span class="whitespace-nowrap">Days</span>
             <div class="w-5 h-3 opacity-0"></div>

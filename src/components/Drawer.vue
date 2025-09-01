@@ -2,7 +2,7 @@
   <aside
     :class="[
       'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
-      drawerStore.isCollapsed ? 'w-16' : 'w-60',
+      drawerStore.isCollapsed ? 'w-16' : 'w-64',
     ]"
   >
     <!-- Logo & Toggle -->
@@ -198,7 +198,7 @@ function isMenuActive(item: { path: string }) {
   if (item.path === "/app") {
     return route.path === "/app" || route.path === "/app/";
   }
-  return route.path.startsWith(item.path);
+  return route.path?.startsWith(item.path);
 }
 </script>
 
