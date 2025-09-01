@@ -76,7 +76,9 @@
           </h2>
 
           <!-- Description -->
-          <p class="text-gray-700 mb-4 text-base">
+          <p
+            class="text-gray-700 mb-4 font-normal text-[16px] leading-6 tracking-normal"
+          >
             {{ steps[currentStep].description }}
           </p>
 
