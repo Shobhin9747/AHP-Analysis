@@ -66,11 +66,11 @@
             <td class="text-right text-[#068EC6] font-medium">£8,862.36</td>
             <td class="text-right text-[#27AE60] font-semibold">£170.43</td>
           </tr>
-          <tr class="border-t border-[#E6EEF5] bg-white font-semibold">
-            <td class="py-3 text-left">Combined Total</td>
-            <td class="text-right text-[#022652]">£32,630.64</td>
-            <td class="py-2 text-right">
-              <span class="inline-block bg-[#27AE60] text-white text-xs px-2.5 py-1 rounded">£627.51</span>
+          <tr class="border-t border-[#E6EEF5] bg-white font-semibold rounded">
+            <td class="py-3 pl-1 text-left">Combined Total</td>
+            <td class="py-3 text-right text-[#022652]">£32,630.64</td>
+            <td class="py-2 pr-1 text-right">
+              <span class="inline-block bg-[#27AE60] text-white text-sm px-3 py-1.5 rounded-md font-semibold">£627.51</span>
             </td>
           </tr>
         </tbody>
