@@ -4,7 +4,7 @@
   >
     <!-- Card 1 -->
     <div
-      class="bg-blue-900 text-white rounded-lg p-3 sm:p-4 flex items-center justify-between"
+      class="bg-gradient-to-r from-[#195384] to-[#11376D] text-white rounded-lg p-3 sm:p-4 flex items-center justify-between"
     >
       <div>
         <p class="text-xs sm:text-sm">Track Back</p>
@@ -29,7 +29,7 @@
     </div>
 
     <div
-      class="bg-blue-900 text-white rounded-lg p-3 sm:p-4 flex items-center justify-between"
+      class="bg-gradient-to-r from-[#195384] to-[#11376D] text-white rounded-lg p-3 sm:p-4 flex items-center justify-between"
     >
       <div>
         <div class="flex items-center gap-1">
@@ -63,7 +63,7 @@
 
     <!-- Card 3 -->
     <div
-  class="bg-blue-900 text-white rounded-lg p-3 sm:p-4 flex items-center justify-between sm:col-span-2 lg:col-span-1"
+  class="bg-gradient-to-r from-[#195384] to-[#11376D] text-white rounded-lg p-3 sm:p-4 flex items-center justify-between sm:col-span-2 lg:col-span-1"
 >
   <div>
     <!-- Not Eligible text + badge -->

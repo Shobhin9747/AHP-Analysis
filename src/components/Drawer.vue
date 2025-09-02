@@ -1,56 +1,57 @@
 <template>
   <aside
     :class="[
-      'fixed top-0 left-0 h-screen transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
+      'fixed top-0 left-0 h-screen bg-gradient-to-r from-[#195384] to-[#11376D] transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
       drawerStore.isCollapsed ? 'w-16' : 'w-64',
     ]"
   >
     <!-- Logo & Toggle -->
     <div
       :class="[
-        'flex items-center gap-2 p-4 border-b border-white/10 flex-shrink-0',
+        'flex items-center gap-2 p-4  border-white/10 flex-shrink-0',
         drawerStore.isCollapsed ? 'justify-center' : 'justify-start',
       ]"
     >
       <button
         @click="drawerStore.toggle"
-        class="text-[#023769] p-1 rounded focus:outline-none cursor-pointer hover:bg-white/10"
+        class="text-white p-1 rounded focus:outline-none cursor-pointer hover:bg-white/10"
         aria-label="Toggle menu"
       >
         <Bars3Icon class="w-6 h-6" />
       </button>
-      <img
-        v-if="!drawerStore.isCollapsed"
-        :src="logoImage"
-        alt="Company Logo"
-        class="h-7 object-contain"
-      />
+      <div v-if="!drawerStore.isCollapsed" class="flex items-center">
+        <img
+          :src="logoImage"
+          alt="Company Logo"
+          class="h-7 object-contain mr-2"
+        />
+      </div>
     </div>
 
     <!-- Navigation -->
-    <ul
-      class="flex-1 overflow-y-auto mt-6 space-y-1 px-2 pb-4 custom-scrollbar"
-    >
-      <li v-for="item in menuItems" :key="item.name">
-        <router-link
-          :to="item.path"
-          :title="drawerStore.isCollapsed ? item.name : ''"
-          :class="[
-            'flex items-center gap-3 p-3 rounded-md transition',
-            isMenuActive(item)
-              ? 'text-[#022652] font-medium'
-              : 'text-[#022652] font-normal',
-          ]"
-        >
+         <ul
+       class="flex-1 overflow-y-auto mt-6 space-y-2 px-2 pb-4 custom-scrollbar"
+     >
+      <li v-for="(item, index) in menuItems" :key="item.name">
+                 <router-link
+           :to="item.path"
+           :title="drawerStore.isCollapsed ? item.name : ''"
+           :class="[
+             'flex items-center gap-3 p-4 rounded-md transition-all duration-200 border border-white/10',
+             isMenuActive(item)
+               ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
+               : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
+           ]"
+         >
           <component
             :is="item.icon"
             class="w-5 h-5 flex-shrink-0"
-            :style="{ color: isMenuActive(item) ? '#022652' : '#BFD7E0' }"
+            :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
           />
           <span
             v-if="!drawerStore.isCollapsed"
             class="text-sm truncate"
-            :style="{ color: isMenuActive(item) ? '#022652' : '#022652' }"
+            :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
           >
             {{ item.name }}
           </span>
@@ -59,7 +60,7 @@
     </ul>
     <div
       v-if="!drawerStore.isCollapsed"
-      class="flex items-center gap-3 p-4 border-t border-white/10 flex-shrink-0"
+      class="flex items-center gap-3 p-4  border-white/10 flex-shrink-0"
     >
       <div
         class="flex items-center justify-between bg-blue-50 p-4 gap-6 rounded-md"
@@ -136,6 +137,13 @@ import {
   InformationCircleIcon,
   Cog6ToothIcon,
   Bars3Icon,
+  ChartBarIcon,
+  DocumentTextIcon,
+  UserIcon,
+  DocumentDuplicateIcon,
+  CheckCircleIcon,
+  ArrowDownTrayIcon,
+  QuestionMarkCircleIcon,
 } from "@heroicons/vue/24/outline";
 import CustomIcon from "./Icons/CustomIcon.vue";
 import logoImage from "../assets/logo.png";
@@ -149,45 +157,46 @@ const menuItems = computed(() => {
 
   if (role === "admin") {
     return [
-      { name: "Dashboard", path: "/app", icon: CustomIcon },
+      { name: "Overview", path: "/app", icon: CustomIcon },
+      { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
+      { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
+      { name: "Company Profile", path: "/app/company", icon: CustomIcon },
+      { name: "Profile", path: "/app/profile", icon: CustomIcon },
+      { name: "Contract", path: "/app/contract", icon: CustomIcon },
       { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
-      { name: "Company", path: "/app/company", icon: CustomIcon },
-      {
-        name: "Contract Type",
-        path: "/app/contract-type",
-        icon: CustomIcon,
-      },
-      {
-        name: "Pay Component",
-        path: "/app/pay-component",
-        icon: CustomIcon,
-      },
-      {
-        name: "Holiday Policy",
-        path: "/app/holiday-policy",
-        icon: CustomIcon,
-      },
-      {
-        name: "Working Pattern",
-        path: "/app/working-pattern",
-        icon: CustomIcon,
-      },
-      { name: "Settings", path: "/app/settings", icon: CustomIcon },
+      { name: "Eligibility Status", path: "/app/eligibility", icon: CustomIcon },
+      { name: "Reports & Downloads", path: "/app/reports", icon: CustomIcon },
+      { name: "Help & Support", path: "/app/help", icon: CustomIcon },
     ];
   }
 
   if (role === "director") {
     return [
-      { name: "Dashboard", path: "/app", icon: HomeIcon },
-      { name: "Employee", path: "/app/employee", icon: InformationCircleIcon },
-      { name: "Settings", path: "/app/settings", icon: Cog6ToothIcon },
+      { name: "Overview", path: "/app", icon: CustomIcon },
+      { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
+      { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
+      { name: "Company Profile", path: "/app/company", icon: CustomIcon },
+      { name: "Profile", path: "/app/profile", icon: CustomIcon },
+      { name: "Contract", path: "/app/contract", icon: CustomIcon },
+      { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
+      { name: "Eligibility Status", path: "/app/eligibility", icon: CustomIcon },
+      { name: "Reports & Downloads", path: "/app/reports", icon: CustomIcon },
+      { name: "Help & Support", path: "/app/help", icon: CustomIcon },
     ];
   }
 
   if (role === "employee") {
     return [
-      { name: "Dashboard", path: "/app", icon: HomeIcon },
-      { name: "Profile", path: "/app/employee", icon: InformationCircleIcon },
+      { name: "Overview", path: "/app", icon: CustomIcon },
+      { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
+      { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
+      { name: "Company Profile", path: "/app/company", icon: CustomIcon },
+      { name: "Profile", path: "/app/profile", icon: CustomIcon },
+      { name: "Contract", path: "/app/contract", icon: CustomIcon },
+      { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
+      { name: "Eligibility Status", path: "/app/eligibility", icon: CustomIcon },
+      { name: "Reports & Downloads", path: "/app/reports", icon: CustomIcon },
+      { name: "Help & Support", path: "/app/help", icon: CustomIcon },
     ];
   }
 
@@ -210,5 +219,17 @@ function isMenuActive(item: { path: string }) {
 
 .custom-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+/* Enhanced hover effects */
+.router-link-active {
+  position: relative;
+}
+
+/* Smooth transitions for all interactive elements */
+* {
+  transition-property: background-color, color, transform, box-shadow;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in-out;
 }
 </style>

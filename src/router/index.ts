@@ -26,8 +26,8 @@ const routes = [
     children: [
       { path: "", name: "Dashboard", component: HolidayPayOverview },
       { path: "employee", name: "Employee", component: Employee },
-      { path: "settings", name: "Settings", component: Settings },
-      { path: "jurisdiction", name: "Jurisdiction", component: Jurisdiction },
+      { path: "analytics", name: "Analytics", component: Settings },
+      { path: "ahp-flow", name: "AHP Flow", component: Jurisdiction },
       { path: "company", name: "Company", component: Company },
       { path: "contract-type", name: "ContractType", component: ContractType },
       { path: "pay-component", name: "PayComponent", component: PayComponent },
@@ -38,8 +38,8 @@ const routes = [
       },
       {
         path: "working-pattern",
-        name: "WorkingPattern",
-        component: WorkingPattern,
+        name: "Settings",
+        component: Settings,
       },
     ],
   },
