@@ -60,7 +60,7 @@
     </ul>
     <div
       v-if="!drawerStore.isCollapsed"
-      class="flex items-center gap-3 p-4  border-white/10 flex-shrink-0"
+      class="flex items-center gap-3 p-3  border-white/10 flex-shrink-0"
     >
       <div
         class="flex items-center justify-between bg-blue-50 p-4 gap-6 rounded-md"
@@ -106,21 +106,27 @@
           ></span>
         </div>
 
-        <svg
-          width="26"
-          height="27"
-          viewBox="0 0 26 27"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          @click="handleLogout"
+          class="p-1 hover:bg-white/10 active:bg-white/20 rounded transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/30"
+          title="Logout"
         >
-          <path
-            d="M10.9979 1L10.1053 4.08621C8.51629 4.53036 7.06505 5.35272 5.88183 6.47951L2.68589 5.6867L0.861511 8.77079L3.16703 11.1088C2.9695 11.874 2.86789 12.6599 2.86441 13.449C2.86875 14.261 2.97699 15.0693 3.18662 15.855L0.861511 18.1867L2.68589 21.2687L5.94061 20.4822C7.10635 21.5732 8.52574 22.3718 10.077 22.8096L10.9979 26H14.6445L15.5872 22.8139C17.1499 22.3765 18.5795 21.5732 19.7519 20.4737L23.0371 21.2687L24.8615 18.1867L22.519 15.838C22.7242 15.0574 22.8295 14.2549 22.8325 13.449C22.8278 12.6678 22.7269 11.8899 22.532 11.1322L24.8615 8.77079L23.0371 5.6867L19.8281 6.48163C18.6325 5.33984 17.1623 4.50958 15.5524 4.06708L14.6445 1H10.9979ZM10.3601 9.29366H15.363L17.8361 13.4787L15.3368 17.7063H10.3862L7.88473 13.4787L10.3601 9.29366Z"
-            stroke="#0E6EA1"
-            stroke-width="0.935314"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
-        </svg>
+          <svg
+            width="26"
+            height="27"
+            viewBox="0 0 26 27"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M10.9979 1L10.1053 4.08621C8.51629 4.53036 7.06505 5.35272 5.88183 6.47951L2.68589 5.6867L0.861511 8.77079L3.16703 11.1088C2.9695 11.874 2.86789 12.6599 2.86441 13.449C2.86875 14.261 2.97699 15.0693 3.18662 15.855L0.861511 18.1867L2.68589 21.2687L5.94061 20.4822C7.10635 21.5732 8.52574 22.3718 10.077 22.8096L10.9979 26H14.6445L15.5872 22.8139C17.1499 22.3765 18.5795 21.5732 19.7519 20.4737L23.0371 21.2687L24.8615 18.1867L22.519 15.838C22.7242 15.0574 22.8295 14.2549 22.8325 13.449C22.8278 12.6678 22.7269 11.8899 22.532 11.1322L24.8615 8.77079L23.0371 5.6867L19.8281 6.48163C18.6325 5.33984 17.1623 4.50958 15.5524 4.06708L14.6445 1H10.9979ZM10.3601 9.29366H15.363L17.8361 13.4787L15.3368 17.7063H10.3862L7.88473 13.4787L10.3601 9.29366Z"
+              stroke="#0E6EA1"
+              stroke-width="0.935314"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
       </div>
     </div>
   </aside>
@@ -128,7 +134,7 @@
 
 <script lang="ts" setup>
 import { computed } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import { useDrawerStore } from "../store/Drawer";
 import { useAuthStore } from "../store/Auth";
 
@@ -151,6 +157,7 @@ import logoImage from "../assets/logo.png";
 const drawerStore = useDrawerStore();
 const auth = useAuthStore();
 const route = useRoute();
+const router = useRouter();
 
 const menuItems = computed(() => {
   const role = auth.user?.role;
@@ -163,9 +170,6 @@ const menuItems = computed(() => {
       { name: "Company Profile", path: "/app/company", icon: CustomIcon },
       { name: "Profile", path: "/app/profile", icon: CustomIcon },
       { name: "Contract", path: "/app/contract", icon: CustomIcon },
-      { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
-      { name: "Eligibility Status", path: "/app/eligibility", icon: CustomIcon },
-      { name: "Reports & Downloads", path: "/app/reports", icon: CustomIcon },
       { name: "Help & Support", path: "/app/help", icon: CustomIcon },
     ];
   }
@@ -202,6 +206,11 @@ const menuItems = computed(() => {
 
   return [];
 });
+
+function handleLogout() {
+  auth.logout();
+  router.push('/');
+}
 
 function isMenuActive(item: { path: string }) {
   if (item.path === "/app") {
