@@ -9,7 +9,7 @@
       ]"
     >
       <!-- <Navbar /> -->
-      <main class="flex-1 overflow-y-auto bg-gray-50">
+      <main class="flex-1 overflow-y-auto bg-[#E5EBEF]">
         <router-view />
       </main>
     </div>
