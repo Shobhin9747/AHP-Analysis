@@ -2,7 +2,7 @@
   <div class="flex justify-between items-center">
     <h3 class="text-xl text-[#022652]  font-semibold mb-4">52 Week Holiday Breakdown</h3>
     <div class="flex items-center gap-2">
-      <ArrowDownTrayIcon class="w-5 h-5 text-blue-500" />
+      <ArrowDownTrayIcon class="w-5 h-5 text-[#068EC6] cursor-pointer" />
       <h2 class="text-sm sm:text-base text-[#022652]">Download</h2>
     </div>
   </div>
@@ -39,27 +39,39 @@
     <div class="hidden sm:block overflow-x-auto">
       <table class="w-full text-sm">
         <thead>
-          <tr class="text-sm text-gray-600">
-            <th class="py-2 text-left">Component</th>
-            <th class="py-2 text-right">Total Amount</th>
-            <th class="py-2 text-right">Weekly Average</th>
+          <tr class="text-xs text-[#5F7282] uppercase tracking-wide">
+            <th class="py-3 text-left">Component</th>
+            <th class="py-3 text-right">Total Amount</th>
+            <th class="py-3 text-right">Weekly Average</th>
           </tr>
         </thead>
         <tbody class="text-sm">
-          <tr>
-            <td class="py-2">Basic Pay</td>
-            <td class="text-right">£23,768.28</td>
-            <td class="text-right">£457.08</td>
+          <tr class="border-t border-[#E6EEF5] ">
+            <td class="py-3 text-left">
+              <span class="inline-flex items-center gap-2 text-[#022652]">
+                <ChevronDownIcon class="w-3.5 h-3.5 text-[#5F7282]" />
+                Basic Pay
+              </span>
+            </td>
+            <td class="text-right text-[#068EC6] font-medium">£23,768.28</td>
+            <td class="text-right text-[#27AE60] font-semibold">£457.08</td>
           </tr>
-          <tr>
-            <td class="py-2 text-left">Variable Pay</td>
-            <td class="text-right">£8,862.36</td>
-            <td class="text-right">£170.43</td>
+          <tr class="border-t border-[#E6EEF5] ">
+            <td class="py-3 text-left">
+              <span class="inline-flex items-center gap-2 text-[#022652]">
+                <ChevronDownIcon class="w-3.5 h-3.5 text-[#5F7282]" />
+                Variable Pay
+              </span>
+            </td>
+            <td class="text-right text-[#068EC6] font-medium">£8,862.36</td>
+            <td class="text-right text-[#27AE60] font-semibold">£170.43</td>
           </tr>
-          <tr class="bg-white font-semibold rounded ">
-            <td class="py-2 p-2 text-left">Combined Total</td>
-            <td class="text-right">£32,630.64</td>
-            <td class="p-2 text-green-600 text-right">£627.51</td>
+          <tr class="border-t border-[#E6EEF5] bg-white font-semibold">
+            <td class="py-3 text-left">Combined Total</td>
+            <td class="text-right text-[#022652]">£32,630.64</td>
+            <td class="py-2 text-right">
+              <span class="inline-block bg-[#27AE60] text-white text-xs px-2.5 py-1 rounded">£627.51</span>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -68,5 +80,5 @@
 </template>
 
 <script setup>
-import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
+import { ArrowDownTrayIcon, ChevronDownIcon } from "@heroicons/vue/24/outline";
 </script>

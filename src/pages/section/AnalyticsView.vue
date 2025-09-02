@@ -64,12 +64,12 @@
                   <span class="text-gray-600">Worked</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                  <div class="w-4 h-0.5 bg-orange-500"></div>
+                  <div class="w-4 h-0.5 bg-[#F6A709]"></div>
                   <span class="text-gray-600">Overtime</span>
                 </div>
               </div>
               <div class="text-right">
-                <div class="text-2xl font-bold text-blue-600">468.5H</div>
+                <div class="text-2xl font-bold text-[#068EC6]">468.5H</div>
                 <div class="text-sm text-gray-600">Total Hours Worked</div>
               </div>
             </div>
@@ -221,8 +221,8 @@ const workedHoursChartData = computed(() => {
       {
         label: 'Overtime Hours',
         data: overtimeHours,
-        backgroundColor: '#f97316',
-        borderColor: '#f97316',
+        backgroundColor: '#F6A709',
+        borderColor: '#F6A709',
         borderWidth: 1,
         borderRadius: 2,
       }
