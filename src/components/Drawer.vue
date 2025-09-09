@@ -23,41 +23,139 @@
         <img
           :src="logoImage"
           alt="Company Logo"
-          class="h-7 object-contain mr-2"
+          class="h-6 object-contain mr-2"
         />
       </div>
     </div>
 
     <!-- Navigation -->
-         <ul
-       class="flex-1 overflow-y-auto mt-6 space-y-2 px-2 pb-4 custom-scrollbar"
-     >
-      <li v-for="(item, index) in menuItems" :key="item.name">
-                 <router-link
-           :to="item.path"
-           :title="drawerStore.isCollapsed ? item.name : ''"
-           :class="[
-             'flex items-center gap-3 p-4 rounded-md transition-all duration-200 border border-white/10',
-             isMenuActive(item)
-               ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
-               : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
-           ]"
-         >
-          <component
-            :is="item.icon"
-            class="w-5 h-5 flex-shrink-0"
-            :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
-          />
-          <span
-            v-if="!drawerStore.isCollapsed"
-            class="text-sm truncate"
-            :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
-          >
-            {{ item.name }}
-          </span>
-        </router-link>
-      </li>
-    </ul>
+    <div class="flex-1 overflow-y-auto mt-6 px-2 pb-4 custom-scrollbar">
+      <!-- Admin Layout -->
+      <div v-if="auth.user?.role === 'admin'">
+        <!-- Explore Section -->
+        <div v-if="!drawerStore.isCollapsed" class="mb-6">
+          <h3 class="text-white font-bold text-sm mb-3 px-2">Explore</h3>
+          <ul class="space-y-1">
+            <li v-for="item in exploreItems" :key="item.name">
+              <router-link
+                :to="item.path"
+                :title="drawerStore.isCollapsed ? item.name : ''"
+                 :class="[
+                'flex items-center gap-3 p-4 rounded-md transition-all duration-200 border border-white/10',
+                isMenuActive(item)
+                  ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
+                  : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
+              ]"
+              >
+                <component
+                  :is="item.icon"
+                  class="w-5 h-5 flex-shrink-0"
+                  :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+                />
+                <span
+                  v-if="!drawerStore.isCollapsed"
+                  class="text-sm truncate"
+                  :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+                >
+                  {{ item.name }}
+                </span>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Jurisdiction Section -->
+        <div v-if="!drawerStore.isCollapsed" class="mb-6">
+          <h3 class="text-white font-bold text-sm mb-3 px-2">Jurisdiction</h3>
+          <ul class="space-y-1">
+            <li v-for="item in jurisdictionItems" :key="item.name">
+              <router-link
+                :to="item.path"
+                :title="drawerStore.isCollapsed ? item.name : ''"
+                :class="[
+                'flex items-center justify-between p-4 rounded-md transition-all duration-200 border border-white/10',
+                isMenuActive(item)
+                  ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
+                  : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
+              ]"
+              >
+                <div class="flex items-center gap-3">
+                  <component
+                    :is="item.icon"
+                    class="w-5 h-5 flex-shrink-0"
+                    :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+                  />
+                  <span
+                    v-if="!drawerStore.isCollapsed"
+                    class="text-sm truncate"
+                    :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+                  >
+                    {{ item.name }}
+                  </span>
+                </div>
+                <div v-if="!drawerStore.isCollapsed" class="flex items-center gap-2">
+                  <span class="text-[#068EC6] text-sm font-medium">{{ item.count }}</span>
+                  <ChartBarIcon class="w-4 h-4 text-white" />
+                </div>
+              </router-link>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Collapsed view for admin -->
+        <ul v-if="drawerStore.isCollapsed" class="space-y-2">
+          <li v-for="item in allMenuItems" :key="item.name">
+            <router-link
+              :to="item.path"
+              :title="item.name"
+             :class="[
+                'flex items-center gap-3 p-4 rounded-md transition-all duration-200 border border-white/10',
+                isMenuActive(item)
+                  ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
+                  : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
+              ]"
+            >
+              <component
+                :is="item.icon"
+                class="w-5 h-5"
+                :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+              />
+            </router-link>
+          </li>
+        </ul>
+      </div>
+
+     
+      <div v-else>
+        <ul class="space-y-2">
+          <li v-for="(item, index) in menuItems" :key="item.name">
+            <router-link
+              :to="item.path"
+              :title="drawerStore.isCollapsed ? item.name : ''"
+              :class="[
+                'flex items-center gap-3 p-4 rounded-md transition-all duration-200 border border-white/10',
+                isMenuActive(item)
+                  ? 'bg-[#068EC6] text-white font-semibold shadow-sm router-link-active'
+                  : 'text-white font-normal hover:bg-white/10 hover:shadow-sm',
+              ]"
+            >
+              <component
+                :is="item.icon"
+                class="w-5 h-5 flex-shrink-0"
+                :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+              />
+              <span
+                v-if="!drawerStore.isCollapsed"
+                class="text-sm truncate"
+                :style="{ color: isMenuActive(item) ? '#ffffff' : '#ffffff' }"
+              >
+                {{ item.name }}
+              </span>
+            </router-link>
+          </li>
+        </ul>
+      </div>
+    </div>
     <div
       v-if="!drawerStore.isCollapsed"
       class="flex items-center gap-3 p-3  border-white/10 flex-shrink-0"
@@ -139,40 +237,52 @@ import { useDrawerStore } from "../store/Drawer";
 import { useAuthStore } from "../store/Auth";
 
 import {
-  HomeIcon,
-  InformationCircleIcon,
-  Cog6ToothIcon,
   Bars3Icon,
-  ChartBarIcon,
-  DocumentTextIcon,
-  UserIcon,
-  DocumentDuplicateIcon,
-  CheckCircleIcon,
-  ArrowDownTrayIcon,
-  QuestionMarkCircleIcon,
 } from "@heroicons/vue/24/outline";
 import CustomIcon from "./Icons/CustomIcon.vue";
+import JurisdictionIcon from "./Icons/JurisdictionIcon.vue";
 import logoImage from "../assets/logo.png";
+import ChartBarIcon from "./Icons/chartBarIcon.vue";
+
 
 const drawerStore = useDrawerStore();
 const auth = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 
-const menuItems = computed(() => {
+const exploreItems = computed(() => {
   const role = auth.user?.role;
 
   if (role === "admin") {
     return [
-      { name: "Overview", path: "/app", icon: CustomIcon },
-      { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
-      { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
-      { name: "Company Profile", path: "/app/company", icon: CustomIcon },
-      { name: "Profile", path: "/app/profile", icon: CustomIcon },
-      { name: "Contract", path: "/app/contract", icon: CustomIcon },
-      { name: "Help & Support", path: "/app/help", icon: CustomIcon },
+      { name: "AHP Admin Console", path: "/admin", icon: CustomIcon },
+      { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
     ];
   }
+
+  return [];
+});
+
+const jurisdictionItems = computed(() => {
+  const role = auth.user?.role;
+
+  if (role === "admin") {
+    return [
+      { name: "England & Wales", path: "/admin/england-wales", icon: JurisdictionIcon, count: 25 },
+      { name: "Scotland", path: "/admin/scotland", icon: JurisdictionIcon, count: 60 },
+      { name: "Northern Ireland", path: "/admin/northern-ireland", icon: JurisdictionIcon, count: 40 },
+    ];
+  }
+
+  return [];
+});
+
+const allMenuItems = computed(() => {
+  return [...exploreItems.value, ...jurisdictionItems.value];
+});
+
+const menuItems = computed(() => {
+  const role = auth.user?.role;
 
   if (role === "director") {
     return [
@@ -213,8 +323,8 @@ function handleLogout() {
 }
 
 function isMenuActive(item: { path: string }) {
-  if (item.path === "/app") {
-    return route.path === "/app" || route.path === "/app/";
+  if (item.path === "/app" || item.path === "/admin") {
+    return route.path === item.path || route.path === item.path + "/";
   }
   return route.path?.startsWith(item.path);
 }

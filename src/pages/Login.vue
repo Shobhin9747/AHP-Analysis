@@ -83,7 +83,13 @@ async function handleLogin() {
     const user = await mockLogin(email.value, password.value) as User;
     let token = 'mock-token';
     auth.login(user,token);
-    router.push('/app');
+    
+    // Redirect based on user role
+    if (user.role === 'admin') {
+      router.push('/admin');
+    } else {
+      router.push('/app');
+    }
   } catch (err) {
     error.value = String(err);
   }
