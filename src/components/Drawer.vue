@@ -65,7 +65,7 @@
         </div>
 
         <!-- Jurisdiction Section -->
-        <div v-if="!drawerStore.isCollapsed" class="mb-6">
+        <!-- <div v-if="!drawerStore.isCollapsed" class="mb-6">
           <h3 class="text-white font-bold text-sm mb-3 px-2">Jurisdiction</h3>
           <ul class="space-y-1">
             <li v-for="item in jurisdictionItems" :key="item.name">
@@ -100,7 +100,7 @@
               </router-link>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <!-- Collapsed view for admin -->
         <ul v-if="drawerStore.isCollapsed" class="space-y-2">
@@ -255,8 +255,9 @@ const exploreItems = computed(() => {
 
   if (role === "admin") {
     return [
-      { name: "AHP Admin Console", path: "/admin", icon: CustomIcon },
+      { name: "Overview", path: "/admin", icon: CustomIcon },
       { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
+      { name: "Help & Support", path: "/admin/support", icon: CustomIcon },
     ];
   }
 
@@ -302,8 +303,8 @@ const menuItems = computed(() => {
   if (role === "employee") {
     return [
       { name: "Overview", path: "/app", icon: CustomIcon },
-      { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
-      { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
+      // { name: "Analytics", path: "/app/analytics", icon: CustomIcon },
+      // { name: "AHP Flow", path: "/app/ahp-flow", icon: CustomIcon },
       { name: "Company Profile", path: "/app/company", icon: CustomIcon },
       { name: "Profile", path: "/app/profile", icon: CustomIcon },
       { name: "Contract", path: "/app/contract", icon: CustomIcon },
