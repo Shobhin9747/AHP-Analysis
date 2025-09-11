@@ -308,6 +308,7 @@ const menuItems = computed(() => {
       { name: "Profile", path: "/app/profile", icon: CustomIcon },
       { name: "Contract", path: "/app/contract", icon: CustomIcon },
       { name: "Jurisdiction", path: "/app/jurisdiction", icon: CustomIcon },
+      { name: "Holiday List", path: "/app/holiday-list", icon: CustomIcon },
       { name: "Eligibility Status", path: "/app/eligibility", icon: CustomIcon },
       { name: "Reports & Downloads", path: "/app/reports", icon: CustomIcon },
       { name: "Help & Support", path: "/app/help", icon: CustomIcon },

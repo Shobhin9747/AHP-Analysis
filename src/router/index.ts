@@ -12,6 +12,7 @@ import WorkingPattern from "../pages/WorkingPattern.vue";
 import { useAuthStore } from "../store/Auth";
 import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
 import AdminOverview from '../pages/section/AdminOverview.vue';
+import HolidayList from '../pages/HolidayList.vue';
 
 const routes = [
   {
@@ -41,6 +42,11 @@ const routes = [
         path: "working-pattern",
         name: "Settings",
         component: Settings,
+      },
+      {
+        path: "holiday-list",
+        name: "HolidayList",
+        component: HolidayList,
       },
     ],
   },
