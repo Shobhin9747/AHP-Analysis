@@ -1,14 +1,43 @@
+
 <template>
-  <div class="w-full h-full flex flex-col">
-    <div class="flex-1 flex items-center justify-center">
+  <div class="w-full h-full flex flex-col items-center">
+    <h2 class="text-lg font-bold mb-2">Salary Type</h2>
+
+    <div class="relative flex items-center justify-center">
       <Doughnut
         :data="chartData"
         :options="chartOptions"
-        class="max-w-sm max-h-sm"
+       class="max-w-[270px] max-h-[270px]"
       />
+      <div class="absolute text-center">
+        <p class="text-gray-500 text-sm">Contract Employees</p>
+        <p class="font-bold text-xl">{{ totalEmployees }}</p>
+      </div>
+    </div>
+
+    <!-- Custom Legend -->
+    <div class="mt-6 w-full px-4 space-y-2">
+      <div
+        v-for="(item, index) in legendItems"
+        :key="index"
+        class="flex items-center justify-between text-sm"
+      >
+        <div class="flex items-center space-x-2">
+          <span
+            class="w-3 h-3 rounded-full"
+            :style="{ backgroundColor: item.color }"
+          ></span>
+          <span class="text-gray-700">{{ item.label }}</span>
+        </div>
+        <div class="flex items-center justify-end gap-4 font-medium">
+          <span class="text-right w-12">{{ item.value }}</span>
+          <span class="text-right w-12 text-gray-500">{{ item.percentage }}%</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
+
 
 <script setup lang="ts">
 import { computed } from 'vue'
@@ -33,12 +62,12 @@ const chartData = computed(() => ({
     {
       data: [1250, 1750, 500, 250, 300, 200],
       backgroundColor: [
-        '#14B8A6', // Teal/Greenish-blue
-        '#3B82F6', // Blue
-        '#8B5CF6', // Purple
-        '#EC4899', // Pink
-        '#F97316', // Orange
-        '#EAB308'  // Yellow
+        '#14B8A6', 
+        '#3B82F6',
+        '#8B5CF6', 
+        '#EC4899', 
+        '#F97316', 
+        '#EAB308'
       ],
       borderColor: '#FFFFFF',
       borderWidth: 2,
@@ -52,42 +81,8 @@ const chartOptions = computed(() => ({
   maintainAspectRatio: true,
   aspectRatio: 1,
   plugins: {
-    legend: {
-      position: 'bottom' as const,
-      align: 'center' as const,
-      labels: {
-        usePointStyle: true,
-        pointStyle: 'circle',
-        padding: 8,
-        font: {
-          size: 10
-        },
-        boxWidth: 8,
-        boxHeight: 8,
-        generateLabels: function(chart: any) {
-          const data = chart.data;
-          if (data.labels.length && data.datasets.length) {
-            const dataset = data.datasets[0];
-            const total = dataset.data.reduce((a: number, b: number) => a + b, 0);
-            
-            return data.labels.map((label: string, index: number) => {
-              const value = dataset.data[index];
-              const percentage = ((value / total) * 100).toFixed(1);
-              
-              return {
-                text: `${label}: ${value} (${percentage}%)`,
-                fillStyle: dataset.backgroundColor[index],
-                strokeStyle: dataset.borderColor,
-                lineWidth: dataset.borderWidth,
-                pointStyle: 'circle',
-                hidden: false,
-                index: index
-              };
-            });
-          }
-          return [];
-        }
-      }
+    legend:{
+       display: false
     },
     tooltip: {
       callbacks: {
@@ -105,4 +100,30 @@ const chartOptions = computed(() => ({
     }
   }
 }))
+
+const labels = ['Full-Time', 'Part-Time', 'Weekly Fixed', 'Irregular', 'Hourly', 'Daily Wages'];
+const values = [1250, 1750, 500, 250, 300, 200];
+const colors = ['#14B8A6', '#3B82F6', '#8B5CF6', '#EC4899', '#F97316', '#EAB308'];
+
+const totalEmployees = computed(() => values.reduce((a, b) => a + b, 0));
+
+const legendItems = computed(() =>
+  labels.map((label, index) => {
+    const value = values[index];
+    const percentage = ((value / totalEmployees.value) * 100).toFixed(1);
+    return {
+      label,
+      value,
+      percentage,
+      color: colors[index]
+    };
+  })
+);
+
 </script>
+
+<style>
+.custom-legend {
+  max-width: 100%;
+}
+</style>
