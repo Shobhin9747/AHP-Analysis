@@ -1,5 +1,10 @@
 <template>
-    <div class="p-6 bg-gray-50 min-h-screen">
+    <div class="min-h-screen bg-gray-50">
+        <!-- Topbar -->
+        <Topbar />
+        
+        <!-- Main content -->
+        <div class="p-6">
         <!-- Top Row - Key Metrics -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <!-- Total Employees Card -->
@@ -210,10 +215,12 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import MonthlyAHPChart from '../../components/Charts/MonthlyAHPChart.vue'
 import SalaryTypeDonutChart from '../../components/Charts/SalaryTypeDonutChart.vue'
+import Topbar from '../../components/Topbar.vue'
 </script>
