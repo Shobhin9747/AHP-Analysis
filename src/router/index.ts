@@ -8,11 +8,13 @@ import Company from "../pages/Company.vue";
 import ContractType from "../pages/ContractType.vue";
 import PayComponent from "../pages/PayComponent.vue";
 import HolidayPolicy from "../pages/HolidayPolicy.vue";
-import WorkingPattern from "../pages/WorkingPattern.vue";
 import { useAuthStore } from "../store/Auth";
 import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
 import AdminOverview from '../pages/section/AdminOverview.vue';
+
 import HolidayList from '../pages/HolidayList.vue';
+import CompanyOverview from '../pages/company/CompanyOverview.vue';
+
 
 const routes = [
   {
@@ -56,9 +58,9 @@ const routes = [
     meta: { requiresAuth: true, requiresAdmin: true },
     name: "Admin",
     children: [
-      { path: "", name: "AdminDashboard", component: AdminOverview },
+      { path: "", name: "AdminDashboard", component: CompanyOverview },
       { path: "reports", name: "AdminReports", component: Settings },
-
+    
     ],
   },
 ];
