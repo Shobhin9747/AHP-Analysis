@@ -10,10 +10,9 @@ import PayComponent from "../pages/PayComponent.vue";
 import HolidayPolicy from "../pages/HolidayPolicy.vue";
 import { useAuthStore } from "../store/Auth";
 import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
-import AdminOverview from '../pages/section/AdminOverview.vue';
-
 import HolidayList from '../pages/HolidayList.vue';
 import CompanyOverview from '../pages/company/CompanyOverview.vue';
+import CompanyList from '../pages/company/CompanyList.vue';
 
 
 const routes = [
@@ -58,8 +57,12 @@ const routes = [
     meta: { requiresAuth: true, requiresAdmin: true },
     name: "Admin",
     children: [
-      { path: "", name: "AdminDashboard", component: CompanyOverview },
+      { path: "", name: " AHP Admin Console", component: CompanyOverview },
       { path: "reports", name: "AdminReports", component: Settings },
+      { path: "england-wales", name: "England & Wales", component: CompanyList },
+      { path: "scotland", name: "ScotLand", component: CompanyList },
+      { path: "northern-ireland", name: "Northern Ireland", component: CompanyList },
+      
     
     ],
   },
@@ -72,23 +75,20 @@ const router = createRouter({
 
 router.beforeEach((to, _from, next) => {
   const auth = useAuthStore();
-  console.log(`Navigating to: ${to.name}, Authenticated: ${auth.isAuthenticated}, Role: ${auth.user?.role}`);
-  
+
   if (!auth.isAuthenticated && to.name !== "Login" && to.name !== "Signup") {
-    // Not logged in → redirect to login
     next({ name: "Login" });
   } else if (
     auth.isAuthenticated &&
     (to.name === "Login" || to.name === "Signup")
   ) {
-    // Already logged in → redirect based on role
+    
     if (auth.user?.role === 'admin') {
       next({ name: "Admin" });
     } else {
       next({ name: "App" });
     }
   } else if (to.meta.requiresAdmin && auth.user?.role !== 'admin') {
-    // Admin route but not admin user → redirect to appropriate dashboard
     next({ name: "App" });
   } else {
     next();

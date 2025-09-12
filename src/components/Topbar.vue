@@ -1,54 +1,43 @@
 <template>
   <div>
-    
+
     <div class="px-6 py-4">
       <div class="flex items-center">
-        
+
         <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-[#068EC6]">AHP Admin Console</h1>
+          <h1 class="text-2xl font-bold text-[#068EC6]">{{ pageTitle }}</h1>
         </div>
 
-     
+
         <div class="ml-8">
           <div class="relative">
             <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-              <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
+             <SearchIcon/>
             </div>
             <input type="text" placeholder="Search..."
-              class="block w-80 pl-3 pr-10 py-2 border border-[#DAEBF8] rounded-lg text-sm placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+              class="block w-80 pl-3 pr-10 py-2 border border-[#DAEBF8] rounded-full text-sm placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
           </div>
         </div>
 
-      
+
         <div class="flex-1"></div>
 
-        <!-- Right side - Icons -->
+
         <div class="flex items-center space-x-4">
           <div class="relative">
             <button class="text-gray-400 hover:text-gray-600 transition-colors">
-              <svg width="24" height="28" viewBox="0 0 24 28" fill="none">
-                <path
-                  d="M8.66355 24.7697C6.56206 24.7651 4.46082 24.7556 2.35957 24.7418C0.812216 24.7124 -0.461437 22.9362 0.161548 21.4012C0.520462 20.5166 1.42822 19.8999 2.38893 19.8936H3.83494C3.83494 17.4386 3.82772 14.9836 3.83518 12.5286C3.86431 9.41659 5.77804 6.41443 8.62239 5.10729L8.64935 5.09517C8.64935 4.27239 8.613 3.38149 8.8607 2.71047C9.34527 1.39921 10.6165 0.491335 12.0613 0.500062C13.8176 0.533032 15.3777 2.06344 15.3895 3.89227V5.09517C15.4451 5.12038 15.5007 5.14608 15.5559 5.1725C18.3222 6.50752 20.1945 9.46362 20.2039 12.5787V19.8936C21.0277 19.8936 21.8892 19.7775 22.6123 20.096C24.0011 20.7079 24.4933 22.7983 23.4106 23.9694C22.9686 24.447 22.3338 24.7294 21.6793 24.7418C19.5927 24.7556 17.5059 24.7648 15.4194 24.7697C15.39 25.1081 15.241 25.487 15.1113 25.7667C14.6421 26.7791 13.5892 27.4748 12.452 27.4967C11.8172 27.5008 11.1803 27.5282 10.6021 27.3148C9.55013 26.9272 8.77621 25.9054 8.66355 24.7697ZM14.3689 24.9844H9.67001C9.88473 25.8467 10.6943 26.5095 11.5991 26.527C12.1078 26.5304 12.6131 26.5793 13.0827 26.4128C13.7112 26.1898 14.2061 25.638 14.3689 24.9844ZM11.9896 1.46975C10.7388 1.49327 9.62018 2.58295 9.61223 3.89518V5.41614C9.58575 5.81977 9.44999 5.79916 9.06026 5.97225C6.56279 7.09952 4.82454 9.7121 4.79782 12.5346V20.3784C4.79782 20.3784 4.6972 20.8381 4.31638 20.8633C3.00542 20.8633 1.46722 20.6691 1.03994 21.801C0.716649 22.6577 1.39981 23.7413 2.35307 23.7718C8.79619 23.8945 15.2427 23.8948 21.6858 23.7718C22.7734 23.7372 23.5338 22.2017 22.6937 21.3144C22.4248 21.0301 22.0418 20.8659 21.6466 20.8633H19.7225C19.462 20.8461 19.2639 20.7311 19.2411 20.3784C19.2411 17.7637 19.2488 15.1491 19.2408 12.5344C19.2153 9.69464 17.4174 6.96037 14.7278 5.86559C14.7278 5.86559 14.4485 5.75044 14.4266 5.41614C14.4266 4.3073 14.5217 3.12452 13.8626 2.33447C13.3997 1.77981 12.7572 1.46514 11.9896 1.46975Z"
-                  fill="#89868D" />
-              </svg>
+              <NotificationIcon />
 
             </button>
-            <!-- Notification badge -->
+
             <span class="absolute -top-1 -right-1 h-4 w-4 bg-red-500 rounded-full flex items-center justify-center">
               <span class="text-xs text-white font-medium">3</span>
             </span>
           </div>
 
-          <!-- Settings gear -->
-          <button class="text-gray-400 hover:text-gray-600 transition-colors">
-            <svg width="26" height="26" viewBox="0 0 26 26" fill="none">
-              <path
-                d="M11.1364 0.5L10.2438 3.58621C8.65478 4.03036 7.20354 4.85272 6.02032 5.97951L2.82438 5.1867L1 8.27079L3.30552 10.6088C3.10799 11.374 3.00638 12.1599 3.0029 12.949C3.00724 13.761 3.11548 14.5693 3.32511 15.355L1 17.6867L2.82438 20.7687L6.0791 19.9822C7.24484 21.0732 8.66422 21.8718 10.2155 22.3096L11.1364 25.5H14.783L15.7257 22.3139C17.2884 21.8765 18.718 21.0732 19.8904 19.9737L23.1756 20.7687L25 17.6867L22.6575 15.338C22.8627 14.5574 22.968 13.7549 22.971 12.949C22.9663 12.1678 22.8654 11.3899 22.6705 10.6322L25 8.27079L23.1756 5.1867L19.9666 5.98163C18.771 4.83984 17.3008 4.00958 15.6909 3.56708L14.783 0.5H11.1364ZM10.4985 8.79366H15.5015L17.9746 12.9787L15.4753 17.2063H10.5247L8.02322 12.9787L10.4985 8.79366Z"
-                stroke="#023769" stroke-width="0.935314" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
+
+          <button class="text-gray-400 hover:text-gray-600 transition-colors cursor-pointer" @click="handleLogout">
+            <SettingsIcon />
 
           </button>
         </div>
@@ -58,6 +47,25 @@
 </template>
 
 <script setup lang="ts">
-// Component logic can be added here if needed
-</script>
+import { computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import NotificationIcon from './Icons/NotificationIcon.vue'
+import SettingsIcon from './Icons/SettingsIcon.vue'
+import { useAuthStore } from '../store/Auth';
+import SearchIcon from './Icons/SearchIcon.vue';
 
+const auth = useAuthStore();
+const route = useRoute();
+const router = useRouter();
+
+
+const pageTitle = computed(() => {
+  const routeName = route.name as string
+  return routeName || 'AHP Admin Console'
+})
+
+function handleLogout() {
+  auth.logout();
+  router.push('/');
+}
+</script>
