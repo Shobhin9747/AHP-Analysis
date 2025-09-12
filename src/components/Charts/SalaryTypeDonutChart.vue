@@ -27,11 +27,11 @@
             class="w-3 h-3 rounded-full"
             :style="{ backgroundColor: item.color }"
           ></span>
-          <span class="text-gray-700">{{ item.label }}</span>
+          <span class="text-gray-700 text-xs">{{ item.label }}</span>
         </div>
         <div class="flex items-center justify-end gap-4 font-medium">
-          <span class="text-right w-12">{{ item.value }}</span>
-          <span class="text-right w-12 text-gray-500">{{ item.percentage }}%</span>
+          <span class="text-right w-12 text-xs">{{ item.value }}</span>
+          <span class="text-right w-12 text-gray-500 text-xs">{{ item.percentage }}%</span>
         </div>
       </div>
     </div>
