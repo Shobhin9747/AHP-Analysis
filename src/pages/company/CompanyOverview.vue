@@ -107,7 +107,7 @@
                     <div class="flex items-center justify-between mb-4">
 
                         <h4 class="text-sm font-medium text-gray-800">Liability</h4>
-                        <p class="text-xs text-blue-600">England & Wales</p>
+                        <p class="text-xs text-[#068EC6]">England & Wales</p>
 
                     </div>
                     <div class="mb-4">
@@ -144,7 +144,7 @@
                     <div class="flex items-center justify-between mb-4">
 
                         <h4 class="text-sm font-medium text-gray-800">Liability</h4>
-                        <p class="text-xs text-blue-600">Scotland</p>
+                        <p class="text-xs text-[#068EC6]">Scotland</p>
 
                     </div>
                     <div class="mb-4">
@@ -182,7 +182,7 @@
                     <div class="flex items-center justify-between mb-4">
 
                         <h4 class="text-sm font-medium text-gray-800">Liability</h4>
-                        <p class="text-xs text-blue-600">Northern Ireland</p>
+                        <p class="text-xs text-[#068EC6]">Northern Ireland</p>
 
                     </div>
                     <div class="mb-4">

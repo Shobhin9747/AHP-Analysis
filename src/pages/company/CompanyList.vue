@@ -15,7 +15,7 @@
             <div class="bg-white rounded-lg shadow-lg border border-gray-200 overflow-hidden">
                 <div class="overflow-x-auto">
                     <table class="w-full">
-                        <thead>
+                        <thead class="border-b border-[#F4F4F4]">
                             <tr>
                                 <th class="px-6 py-3 text-left text-base font-medium text-[#022652] ">
                                     Name</th>
@@ -31,8 +31,9 @@
                                     Status</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-[#F4F4F4]">
-                            <tr v-for="(company, index) in companies" :key="index" class="hover:bg-gray-50">
+                        <tbody>
+                            <tr v-for="(company, index) in companies" :key="index" 
+                                :class="['hover:bg-gray-50', index < companies.length - 1 ? 'border-b border-[#F4F4F4]' : '']">
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center gap-1">
                                         <CompanyIcon />

@@ -3,7 +3,6 @@
     'fixed top-0 left-0 h-screen bg-gradient-to-r from-[#195384] to-[#11376D] transition-all duration-300 text-white z-20 shadow-lg flex flex-col',
     drawerStore.isCollapsed ? 'w-16' : 'w-64',
   ]">
-    <!-- Logo & Toggle -->
     <div :class="[
       'flex items-center gap-2 p-4  border-white/10 flex-shrink-0',
       drawerStore.isCollapsed ? 'justify-center' : 'justify-start',
@@ -17,11 +16,10 @@
       </div>
     </div>
 
-    <!-- Navigation -->
+  
     <div class="flex-1 overflow-y-auto mt-6 px-2 pb-4 custom-scrollbar">
-      <!-- Admin Layout -->
+     
       <div v-if="auth.user?.role === 'admin'">
-        <!-- Explore Section -->
         <div v-if="!drawerStore.isCollapsed" class="mb-6">
           <h3 class="text-white font-bold text-sm mb-3 px-2">Explore</h3>
           <ul class="space-y-1">
@@ -43,7 +41,6 @@
           </ul>
         </div>
 
-        <!-- Jurisdiction Section -->
         <div v-if="!drawerStore.isCollapsed" class="mb-6">
           <h3 class="text-white font-bold text-sm mb-3 px-2">Jurisdiction</h3>
           <ul class="space-y-1">
@@ -71,7 +68,6 @@
           </ul>
         </div>
 
-        <!-- Collapsed view for admin -->
         <ul v-if="drawerStore.isCollapsed" class="space-y-2">
           <li v-for="item in allMenuItems" :key="item.name">
             <router-link :to="item.path" :title="item.name" :class="[
