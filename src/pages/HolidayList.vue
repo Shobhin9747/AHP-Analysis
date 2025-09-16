@@ -1,5 +1,5 @@
 <template>
-  <div class="p-3 sm:p-4 lg:p-5 space-y-4 sm:space-y-6">
+  <div class="space-y-4 sm:space-y-6">
     <div class="pb-2">
       <!-- Page Title -->
       <div class="flex items-center space-x-4 mb-4">
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Holiday Table -->
-   <div class="bg-[#EEF4F8] shadow-sm rounded-lg p-10 pt-5">
+   <div class="bg-white shadow-sm rounded-lg p-10 pt-5">
 
   <table class="w-full border-separate border-spacing-y-3">
     <thead>

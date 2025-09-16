@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-200">
+  <div class="min-h-screen flex items-center justify-center">
     <div class="w-96 bg-white rounded-2xl shadow-2xl p-8 space-y-6">
       <div class="text-center space-y-2">
         <h2 class="text-2xl font-bold text-indigo-700">Login</h2>

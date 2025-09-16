@@ -13,6 +13,7 @@ import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
 import HolidayList from '../pages/HolidayList.vue';
 import CompanyOverview from '../pages/company/CompanyOverview.vue';
 import CompanyList from '../pages/company/CompanyList.vue';
+import CompanyDetails from '../pages/company/CompanyDetails.vue';
 
 
 const routes = [
@@ -62,6 +63,7 @@ const routes = [
       { path: "england-wales", name: "England & Wales", component: CompanyList },
       { path: "scotland", name: "ScotLand", component: CompanyList },
       { path: "northern-ireland", name: "Northern Ireland", component: CompanyList },
+      { path: "company/:id", name: "CompanyDetails", component: CompanyDetails },
       
     
     ],
