@@ -1,8 +1,8 @@
 <template>
-    <div class="min-h-screen bg-gray-50">
-        <Topbar />
-        <div class="p-6">
-           
+    <div class="min-h-screen">
+        <div>
+            <Topbar />
+
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-sm font-semibold text-[#022652]">25 Companies</h1>
                 <button class="flex items-center gap-2 cursor-pointer">
@@ -33,7 +33,8 @@
                         </thead>
                         <tbody>
                             <tr v-for="(company, index) in companies" :key="index" 
-                                :class="['hover:bg-gray-50', index < companies.length - 1 ? 'border-b border-[#F4F4F4]' : '']">
+                                :class="['hover:bg-gray-50 cursor-pointer', index < companies.length - 1 ? 'border-b border-[#F4F4F4]' : '']"
+                                @click="handleCompanyClick(company.id)">
                                 <td class="px-6 py-5 whitespace-nowrap">
                                     <div class="flex items-center gap-1">
                                         <CompanyIcon />
@@ -66,12 +67,20 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import Topbar from '../../components/Topbar.vue'
 import { ArrowDownTrayIcon } from "@heroicons/vue/24/outline";
 import CompanyIcon from '../../components/Icons/CompanyIcon.vue';
 
+const router = useRouter()
+
+const handleCompanyClick = (companyId: number) => {
+    router.push(`/admin/company/${companyId}`)
+}
+
 const companies = [
     {
+        id: 1,
         name: 'Hilton Food Group PLC',
         companyNumber: 'CMP5236987',
         industry: 'Pharma',
@@ -80,75 +89,84 @@ const companies = [
         status: 'Active'
     },
     {
+        id: 2,
         name: 'Lloyds Banking Group PLC',
-        companyNumber: 'CMP5236987',
+        companyNumber: 'CMP5236988',
         industry: 'Banking',
         jurisdiction: 'England',
         employeeCount: '36',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 3,
+        name: 'Tesco PLC',
+        companyNumber: 'CMP5236989',
+        industry: 'Retail',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '450',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 4,
+        name: 'BP PLC',
+        companyNumber: 'CMP5236990',
+        industry: 'Energy',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '180',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 5,
+        name: 'Unilever PLC',
+        companyNumber: 'CMP5236991',
+        industry: 'Consumer Goods',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '320',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
+        id: 6,
+        name: 'GlaxoSmithKline PLC',
+        companyNumber: 'CMP5236992',
         industry: 'Pharma',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '280',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
+        id: 7,
+        name: 'AstraZeneca PLC',
+        companyNumber: 'CMP5236993',
         industry: 'Pharma',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '195',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 8,
+        name: 'Vodafone Group PLC',
+        companyNumber: 'CMP5236994',
+        industry: 'Telecommunications',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '220',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 9,
+        name: 'Rolls-Royce Holdings PLC',
+        companyNumber: 'CMP5236995',
+        industry: 'Aerospace',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '150',
         status: 'Active'
     },
     {
-        name: 'Hilton Food Group PLC',
-        companyNumber: 'CMP5236987',
-        industry: 'Pharma',
+        id: 10,
+        name: 'Diageo PLC',
+        companyNumber: 'CMP5236996',
+        industry: 'Beverages',
         jurisdiction: 'England',
-        employeeCount: '254',
+        employeeCount: '95',
         status: 'Active'
     }
 ]

@@ -1,11 +1,11 @@
 <template>
   <div>
 
-    <div class="px-6 py-4">
+    <div class="py-4 mb-6">
       <div class="flex items-center">
 
         <div class="flex items-center">
-          <h1 class="text-2xl font-bold text-[#068EC6]">{{ pageTitle }}</h1>
+          <h1 class="text-2xl font-bold text-[#068EC6]">{{ resolvedTitle }}</h1>
         </div>
 
 
@@ -58,11 +58,15 @@ const auth = useAuthStore();
 const route = useRoute();
 const router = useRouter();
 
+// Optional title override (e.g., show company name on details page)
+const props = defineProps<{ title?: string }>()
 
 const pageTitle = computed(() => {
   const routeName = route.name as string
   return routeName || 'AHP Admin Console'
 })
+
+const resolvedTitle = computed(() => props.title ?? pageTitle.value)
 
 function handleLogout() {
   auth.logout();

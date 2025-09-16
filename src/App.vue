@@ -13,6 +13,11 @@ body {
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: #EEF4F8;
+}
+
+html {
+  background-color: #EEF4F8;
 }
 </style>
 

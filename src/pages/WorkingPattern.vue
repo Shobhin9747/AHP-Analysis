@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6">
+  <div>
     <h1 class="text-2xl font-bold mb-2">Working Pattern</h1>
     <p>This is the Working Pattern page.</p>
   </div>
