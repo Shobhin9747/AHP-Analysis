@@ -36,7 +36,7 @@
     </div>
 
     <!-- Holiday Table -->
-   <div class="bg-white shadow-sm rounded-lg p-10 pt-5">
+   <div class="bg-[#EEF4F8] shadow-sm rounded-lg p-10 pt-5">
 
   <table class="w-full border-separate border-spacing-y-3">
     <thead>
