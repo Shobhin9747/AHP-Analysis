@@ -8,11 +8,16 @@
 </script>
 
 <style>
-body {
+:root {
+  --page-bg: #F5F9FC;
+}
+
+html, body {
   font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   height: 100%;
+  background-color: var(--page-bg);
 }
 </style>
 

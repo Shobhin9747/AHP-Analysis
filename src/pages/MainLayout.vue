@@ -9,7 +9,7 @@
       ]"
     >
       <!-- <Navbar /> -->
-      <main class="flex-1 overflow-y-auto bg-[#E5EBEF]">
+      <main class="flex-1 overflow-y-auto px-[60px] pt-[30px] pb-[60px]" :style="{ backgroundColor: 'var(--page-bg)' }">
         <router-view />
       </main>
     </div>
