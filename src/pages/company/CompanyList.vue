@@ -4,10 +4,10 @@
             <Topbar />
 
             <div class="flex items-center justify-between mb-6">
-                <h1 class="text-sm font-semibold text-[#022652]">25 Companies</h1>
+                <h1 class="text-[20px] font-semibold text-[#022652]">25 Companies</h1>
                 <button class="flex items-center gap-2 cursor-pointer">
                     <ArrowDownTrayIcon class="h-4 w-4 text-[#068EC6]" />
-                    <span class="text-[#333333] text-sm">Download</span>
+                    <span class="text-[#333333] text-[14px]">Download</span>
                 </button>
             </div>
 
@@ -17,17 +17,17 @@
                     <table class="w-full">
                         <thead class="border-b border-[#F4F4F4]">
                             <tr>
-                                <th class="px-6 py-4 text-left text-base font-medium text-[#022652] ">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Name</th>
-                                <th class="px-6 py-4 text-left text-base font-medium text-[#022652]">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Company Number</th>
-                                <th class="px-6 py-4 text-left text-base font-medium text-[#022652]">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Industry</th>
-                                <th class="px-6 py-4 text-left text-base font-medium text-[#022652]">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Jurisdiction</th>
-                                <th class="px-6 py-4 text-center text-base font-medium text-[#022652]">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Employee Count</th>
-                                <th class="px-6 py-4 text-left text-base font-medium text-[#022652]">
+                                <th class="px-6 py-[30px] text-left text-[16px] font-semibold text-[#022652]">
                                     Status</th>
                             </tr>
                         </thead>
@@ -36,7 +36,7 @@
                                 :class="['hover:bg-gray-50 cursor-pointer', index < companies.length - 1 ? 'border-b border-[#F4F4F4]' : '']"
                                 @click="handleCompanyClick(company.id)">
                                 <td class="px-6 py-5 whitespace-nowrap">
-                                    <div class="flex items-center gap-1">
+                                    <div class="flex items-center gap-2">
                                         <CompanyIcon />
                                         <div class="text-sm font-medium text-[#333333]">{{ company.name }}</div>
                                     </div>
