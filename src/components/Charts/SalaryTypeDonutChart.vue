@@ -1,37 +1,37 @@
 
 <template>
   <div class="w-full h-full flex flex-col items-center">
-    <h2 class="text-lg font-bold mb-2">Salary Type</h2>
+    <h2 class="text-base sm:text-lg font-bold mb-2">Salary Type</h2>
 
     <div class="relative flex items-center justify-center">
       <Doughnut
         :data="chartData"
         :options="chartOptions"
-       class="max-w-[270px] max-h-[270px]"
+        class="max-w-[200px] max-h-[200px] sm:max-w-[270px] sm:max-h-[270px]"
       />
       <div class="absolute text-center">
-        <p class="text-gray-500 text-sm">Contract Employees</p>
-        <p class="font-bold text-xl">{{ totalEmployees }}</p>
+        <p class="text-gray-500 text-xs sm:text-sm">Contract Employees</p>
+        <p class="font-bold text-lg sm:text-xl">{{ totalEmployees }}</p>
       </div>
     </div>
 
     <!-- Custom Legend -->
-    <div class="mt-6 w-full px-4 space-y-2">
+    <div class="mt-4 sm:mt-6 w-full px-2 sm:px-4 space-y-1.5 sm:space-y-2">
       <div
         v-for="(item, index) in legendItems"
         :key="index"
-        class="flex items-center justify-between text-sm"
+        class="flex items-center justify-between text-xs sm:text-sm"
       >
-        <div class="flex items-center space-x-2">
+        <div class="flex items-center space-x-1.5 sm:space-x-2">
           <span
-            class="w-3 h-3 rounded-full"
+            class="w-2 h-2 sm:w-3 sm:h-3 rounded-full flex-shrink-0"
             :style="{ backgroundColor: item.color }"
           ></span>
-          <span class="text-gray-700 text-xs">{{ item.label }}</span>
+          <span class="text-gray-700 text-xs sm:text-sm leading-tight">{{ item.label }}</span>
         </div>
-        <div class="flex items-center justify-end gap-4 font-medium">
-          <span class="text-right w-12 text-xs">{{ item.value }}</span>
-          <span class="text-right w-12 text-gray-500 text-xs">{{ item.percentage }}%</span>
+        <div class="flex items-center justify-end gap-2 sm:gap-4 font-medium">
+          <span class="text-right w-8 sm:w-12 text-xs">{{ item.value }}</span>
+          <span class="text-right w-8 sm:w-12 text-gray-500 text-xs">{{ item.percentage }}%</span>
         </div>
       </div>
     </div>
