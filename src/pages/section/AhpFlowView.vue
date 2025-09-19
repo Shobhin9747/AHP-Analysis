@@ -1,21 +1,21 @@
 <template>
   <PageLayout>
     <template #content>
-      <div class="flex bg-[#EEF4F8] p-6 space-x-8">
+      <div class="flex flex-col lg:flex-row bg-[#EEF4F8] p-4 sm:p-6 space-y-6 lg:space-y-0 lg:space-x-8">
         <!-- LEFT: Steps List -->
-        <div class="relative">
+        <div class="relative lg:w-96 xl:w-[420px]">
           <!-- Vertical Line -->
-          <div class="absolute top-0 bottom-0 left-4 w-0.5 bg-gray-300"></div>
+          <div class="absolute top-0 bottom-0 left-4 w-0.5 bg-gray-300 hidden lg:block"></div>
 
           <div
             v-for="(step, index) in steps"
             :key="index"
-            class="relative flex items-center mb-4 cursor-pointer"
+            class="relative flex items-center mb-3 sm:mb-4 cursor-pointer"
             @click="currentStep = index"
           >
             <!-- Step Number -->
             <div
-              class="relative flex items-center justify-center w-8 h-8 rounded border-2 text-sm font-bold z-10 transition-colors duration-200 bg-white"
+              class="relative flex items-center justify-center w-6 h-6 sm:w-8 sm:h-8 rounded border-2 text-xs sm:text-sm font-bold z-10 transition-colors duration-200 bg-white flex-shrink-0"
               :class="
                 currentStep === index
                   ? 'border-green-500 text-green-600'
@@ -28,16 +28,20 @@
             <!-- Step Content -->
             <div
               :class="[
-                'flex items-center rounded transition-colors duration-200 ml-[15px]',
+                'flex items-center rounded transition-colors duration-200 ml-2 sm:ml-[15px] flex-1',
                 currentStep === index
                   ? 'bg-white border-green-200'
                   : 'bg-[#F5FCFF] border-transparent',
               ]"
-              style="width: 420px; height: 80px; padding-left: 20px"
+              :style="{
+                width: '100%',
+                height: '60px',
+                paddingLeft: '12px'
+              }"
             >
               <p
                 :class="[
-                  'text-sm font-medium',
+                  'text-xs sm:text-sm font-medium leading-tight',
                   currentStep === index ? 'text-green-700' : 'text-blue-900',
                 ]"
               >
@@ -47,7 +51,7 @@
             <!-- Right Arrow -->
             <div
               v-if="currentStep === index"
-              class="absolute right-[-13px] w-0 h-0 border-t-[8px] border-b-[8px] border-l-[8px] border-t-transparent border-b-transparent ml-[59px]"
+              class="absolute right-[-8px] sm:right-[-13px] w-0 h-0 border-t-[6px] sm:border-t-[8px] border-b-[6px] sm:border-b-[8px] border-l-[6px] sm:border-l-[8px] border-t-transparent border-b-transparent ml-[20px] sm:ml-[59px] hidden lg:block"
               :class="
                 currentStep === index
                   ? 'border-l-green-500'
@@ -58,26 +62,17 @@
         </div>
 
         <!-- RIGHT: Step Details -->
-        <div class="flex-1 p-6">
+        <div class="flex-1 p-4 sm:p-6">
           <!-- Description Title -->
           <h2
-            class="mb-3"
-            style="
-              font-family: Inter;
-              font-weight: 700;
-              font-style: Bold;
-              font-size: 28px;
-              line-height: 100%;
-              letter-spacing: 0%;
-              color: #022652;
-            "
+            class="mb-3 text-xl sm:text-2xl lg:text-[28px] font-bold text-[#022652] leading-tight"
           >
             {{ steps[currentStep].descriptionTitle }}
           </h2>
 
           <!-- Description -->
           <p
-            class="text-gray-700 mb-4 font-normal text-[16px] leading-6 tracking-normal"
+            class="text-gray-700 mb-4 font-normal text-sm sm:text-base leading-5 sm:leading-6 tracking-normal"
           >
             {{ steps[currentStep].description }}
           </p>
@@ -87,21 +82,22 @@
             <!-- Not Applied -->
             <div
               v-if="steps[currentStep].status === 'Not Applied'"
-              class="flex items-center p-4 rounded-md bg-[#F9E1E2] text-red-700 mb-4"
+              class="flex flex-col sm:flex-row items-start sm:items-center p-3 sm:p-4 rounded-md bg-[#F9E1E2] text-red-700 mb-4"
             >
               <!-- Left: Tick + Status -->
               <div
-                class="flex items-center text-[#022652] font-bold mr-4 whitespace-nowrap"
+                class="flex items-center text-[#022652] font-bold mb-2 sm:mb-0 sm:mr-4 whitespace-nowrap"
               >
                 <span class="text-red-500 mr-2">✔</span>
                 Not Applied
               </div>
 
               <!-- Vertical Divider -->
-              <div class="h-20 border-l border-red-400 mx-4"></div>
+              <div class="hidden sm:block h-16 sm:h-20 border-l border-red-400 mx-4"></div>
+              <div class="block sm:hidden w-full h-px bg-red-400 mb-2"></div>
 
               <!-- Right: Why this matters -->
-              <p class="text-red-600 text-sm">
+              <p class="text-red-600 text-xs sm:text-sm">
                 <span class="font-bold">Why this matters:</span>
                 this ensures your holiday pay reflects actual work rather than
                 inactive weeks.
@@ -111,19 +107,20 @@
             <!-- Applied -->
             <div
               v-else-if="steps[currentStep].status === 'Applied'"
-              class="flex items-center p-4 rounded-md bg-green-50 text-green-700 mb-4"
+              class="flex flex-col sm:flex-row items-start sm:items-center p-3 sm:p-4 rounded-md bg-green-50 text-green-700 mb-4"
             >
               <!-- Left: Tick + Status -->
-              <div class="flex items-center text-[#022652] font-bold mr-4">
+              <div class="flex items-center text-[#022652] font-bold mb-2 sm:mb-0 sm:mr-4">
                 <span class="text-green-500 mr-2">✔</span>
                 Applied
               </div>
 
               <!-- Vertical Divider -->
-              <div class="h-20 border-l border-green-400 mx-4"></div>
+              <div class="hidden sm:block h-16 sm:h-20 border-l border-green-400 mx-4"></div>
+              <div class="block sm:hidden w-full h-px bg-green-400 mb-2"></div>
 
               <!-- Right: Success message -->
-              <p class="text-green-600 text-sm">
+              <p class="text-green-600 text-xs sm:text-sm">
                 <span class="font-bold">Success:</span>
                 this step has been successfully applied to your holiday pay
                 calculation.

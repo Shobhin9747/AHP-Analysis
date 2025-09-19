@@ -39,20 +39,20 @@
       <!-- Unified grid for sm+ to ensure perfect header/data alignment -->
       <div class="hidden sm:grid [grid-template-columns:1.1fr_0.8fr_0.8fr_0.8fr] gap-x-2 gap-y-2">
         <!-- Headers -->
-        <div class="bg-[#E5EBEF] text-gray-700 text-xs font-medium p-1 rounded-lg text-center">
+        <div class="bg-[#E5EBEF] text-[#000000] text-[12px] font-medium p-1 rounded-lg text-center">
           <div class="grid grid-cols-[1fr_auto] items-center gap-1">
             <span class="whitespace-nowrap">Days</span>
             <div class="w-5 h-3 opacity-0"></div>
           </div>
         </div>
-        <div class="bg-[#E5EBEF] text-gray-700 text-xs font-medium p-1 rounded-lg text-center whitespace-nowrap">Regular</div>
-        <div class="bg-[#E5EBEF] text-gray-700 text-xs font-medium p-1 rounded-lg text-center whitespace-nowrap">Overtime</div>
-        <div class="bg-[#023769] text-white text-xs font-medium p-1 rounded-lg text-center whitespace-nowrap">Total Hrs</div>
+        <div class="bg-[#E5EBEF] text-[#000000] text-[12px] font-medium p-1 rounded-lg text-center whitespace-nowrap">Regular</div>
+        <div class="bg-[#E5EBEF] text-[#000000] text-[12px] font-medium p-1 rounded-lg text-center whitespace-nowrap">Overtime</div>
+        <div class="bg-[#023769] text-white text-[12px] font-medium p-1 rounded-lg text-center whitespace-nowrap">Total Hrs</div>
 
         <!-- Rows -->
         <template v-for="(day, index) in weekData.days" :key="index">
           <div class="grid grid-cols-[1fr_auto] items-center gap-1 min-w-0">
-            <span class="font-medium text-gray-900 text-xs whitespace-nowrap">{{ day.name }}</span>
+            <span class="font-medium font-semibold text-gray-900 text-[12px] whitespace-nowrap">{{ day.name }}</span>
             <div
               :class="[
                 'w-5 h-3 flex items-center justify-center text-[8px] font-bold text-white flex-shrink-0',
@@ -62,9 +62,9 @@
               {{ day.eligible ? 'E' : 'NE' }}
             </div>
           </div>
-          <div class="text-center text-gray-700 font-medium text-xs whitespace-nowrap">{{ day.regular }} h</div>
-          <div class="text-center text-gray-700 font-medium text-xs whitespace-nowrap">{{ day.overtime }} h</div>
-          <div class="text-center font-bold text-xs whitespace-nowrap" :class="day.eligible ? 'text-blue-600' : 'text-gray-400'">{{ day.total }} h</div>
+          <div class="text-center text-[#666666] font-medium text-[14px] whitespace-nowrap">{{ day.regular }} h</div>
+          <div class="text-center text-[#666666] font-medium text-[14px] whitespace-nowrap">{{ day.overtime }} h</div>
+          <div class="text-center font-semibold text-[14px]  whitespace-nowrap" :class="day.eligible ? 'text-[#023769]' : 'text-[#C1CAD4]'">{{ day.total }} h</div>
         </template>
       </div>
 
@@ -76,7 +76,7 @@
           class="rounded-lg p-2"
         >
           <div class="grid grid-cols-[1fr_auto] items-center gap-1">
-            <span class="font-medium text-gray-900 text-xs">{{ day.name }}</span>
+            <span class="font-medium font-semibold text-gray-900 text-[12px]">{{ day.name }}</span>
             <div
               :class="[
                 'w-5 h-3 flex items-center justify-center text-[8px] font-bold text-white flex-shrink-0',
@@ -89,15 +89,15 @@
           <div class="grid grid-cols-3 gap-2 mt-2 text-xs">
             <div>
               <div class="text-[10px] text-gray-500">Regular</div>
-              <div class="font-medium">{{ day.regular }} h</div>
+              <div class="font-medium text-[#666666]">{{ day.regular }} h</div>
             </div>
             <div>
               <div class="text-[10px] text-gray-500">Overtime</div>
-              <div class="font-medium">{{ day.overtime }} h</div>
+              <div class="font-medium text-[#666666]">{{ day.overtime }} h</div>
             </div>
             <div>
               <div class="text-[10px] text-gray-500">Total</div>
-              <div :class="['font-bold text-right', day.eligible ? 'text-blue-600' : 'text-gray-400']">{{ day.total }} h</div>
+              <div :class="['font-bold text-right', day.eligible ? 'text-[#023769]' : 'text-[#C1CAD4]']">{{ day.total }} h</div>
             </div>
           </div>
         </div>
