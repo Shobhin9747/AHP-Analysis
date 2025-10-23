@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import Login from '../pages/Login.vue';
-import MainLayout from '../pages/MainLayout.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import Login from "../pages/Login.vue";
+import MainLayout from "../pages/MainLayout.vue";
 import Employee from "../pages/Employee.vue";
 import Settings from "../pages/Settings.vue";
 import Jurisdiction from "../pages/Jurisdiction.vue";
@@ -9,12 +9,13 @@ import ContractType from "../pages/ContractType.vue";
 import PayComponent from "../pages/PayComponent.vue";
 import HolidayPolicy from "../pages/HolidayPolicy.vue";
 import { useAuthStore } from "../store/Auth";
-import HolidayPayOverview from '../pages/HolidayPayOverview.vue';
-import HolidayList from '../pages/HolidayList.vue';
-import CompanyOverview from '../pages/company/CompanyOverview.vue';
-import CompanyList from '../pages/company/CompanyList.vue';
-import CompanyDetails from '../pages/company/CompanyDetails.vue';
-
+import HolidayPayOverview from "../pages/HolidayPayOverview.vue";
+import HolidayList from "../pages/HolidayList.vue";
+import CompanyOverview from "../pages/company/CompanyOverview.vue";
+import CompanyList from "../pages/company/CompanyList.vue";
+import CompanyDetails from "../pages/company/CompanyDetails.vue";
+import AhpResult from "../pages/section/AhpResult.vue";
+import OverideAhpResult from "../pages/section/OverideAhpResult.vue";
 
 const routes = [
   {
@@ -60,12 +61,24 @@ const routes = [
     children: [
       { path: "", name: " AHP Admin Console", component: CompanyOverview },
       { path: "reports", name: "AdminReports", component: Settings },
-      { path: "england-wales", name: "England & Wales", component: CompanyList },
+      { path: "ahpResult", name: "AHP Analysis", component: AhpResult },
+      { path: "OverideAHPResult", name: "Overide AhpResult", component: OverideAhpResult },
+      {
+        path: "england-wales",
+        name: "England & Wales",
+        component: CompanyList,
+      },
       { path: "scotland", name: "ScotLand", component: CompanyList },
-      { path: "northern-ireland", name: "Northern Ireland", component: CompanyList },
-      { path: "company/:id", name: "CompanyDetails", component: CompanyDetails },
-      
-    
+      {
+        path: "northern-ireland",
+        name: "Northern Ireland",
+        component: CompanyList,
+      },
+      {
+        path: "company/:id",
+        name: "CompanyDetails",
+        component: CompanyDetails,
+      },
     ],
   },
 ];
@@ -84,13 +97,12 @@ router.beforeEach((to, _from, next) => {
     auth.isAuthenticated &&
     (to.name === "Login" || to.name === "Signup")
   ) {
-    
-    if (auth.user?.role === 'admin') {
+    if (auth.user?.role === "admin") {
       next({ name: "Admin" });
     } else {
       next({ name: "App" });
     }
-  } else if (to.meta.requiresAdmin && auth.user?.role !== 'admin') {
+  } else if (to.meta.requiresAdmin && auth.user?.role !== "admin") {
     next({ name: "App" });
   } else {
     next();

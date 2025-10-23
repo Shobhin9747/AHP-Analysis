@@ -41,7 +41,7 @@
           </ul>
         </div>
 
-        <div v-if="!drawerStore.isCollapsed" class="mb-6">
+        <!-- <div v-if="!drawerStore.isCollapsed" class="mb-6">
           <h3 class="text-white font-bold text-sm mb-3 px-2">Jurisdiction</h3>
           <ul class="space-y-1">
             <li v-for="item in jurisdictionItems" :key="item.name">
@@ -66,7 +66,7 @@
               </router-link>
             </li>
           </ul>
-        </div>
+        </div> -->
 
         <ul v-if="drawerStore.isCollapsed" class="space-y-2">
           <li v-for="item in allMenuItems" :key="item.name">
@@ -163,8 +163,9 @@ const exploreItems = computed(() => {
   if (role === "admin") {
     return [
       { name: "Overview", path: "/admin", icon: CustomIcon },
-      { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
-      { name: "Help & Support", path: "/admin/support", icon: CustomIcon },
+      // { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
+      // { name: "Help & Support", path: "/admin/support", icon: CustomIcon },
+      { name: "Ahp Analysis", path: "/admin/ahpResult", icon: CustomIcon },
     ];
   }
 
