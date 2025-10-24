@@ -1,5 +1,5 @@
 <template>
-     <Topbar />
+  <Topbar />
   <div class="bg-white rounded p-2">
 
 
@@ -92,158 +92,90 @@
                         </div>
                
                <!-- Employee Cards Grid -->
-               <div v-if="filteredResults.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+               <div v-if="filteredResults.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                  <div v-for="(result, index) in filteredResults" :key="index" 
-                      @click="navigateToOverride(result)" 
-                      class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300">
+                      @click="openEmployeeModal(result)" 
+                      class="bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden cursor-pointer hover:shadow-xl transition-all duration-300 hover:scale-105">
                    <!-- Employee Header -->
-                   <div class="bg-gradient-to-r from-[#195384] to-[#11376D] p-4 text-white">
-                     <div class="flex items-center justify-between">
-                       <div>
-                         <h4 class="text-lg font-bold mb-1">{{ result.EmployeeNumber }}</h4>
-                         <p class="text-indigo-100 text-xs">{{ result.CompanyNumber }}</p>
-                       </div>
-                       <div class="text-right">
-                         <div class="text-indigo-100 text-xs mb-1">Calculated</div>
-                         <div class="text-sm font-semibold">{{ formatDate(result.CalculationDate) }}</div>
-                       </div>
+                   <div class="bg-gradient-to-r from-[#195384] to-[#11376D] p-3 text-white">
+                     <div class="text-center">
+                       <h4 class="text-xs font-bold mb-1">{{ result.EmployeeNumber }}</h4>
+                       <p class="text-indigo-100 text-xs">{{ result.CompanyNumber }}</p>
                      </div>
                    </div>
 
                    <!-- Key Metrics -->
                    <div class="p-3">
-                     <div class="grid grid-cols-2 gap-2 mb-3">
-                       <!-- Final AHP -->
+                     <div class="space-y-2">
+                       <!-- Basic Pay -->
                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-2 border border-blue-200">
-                         <div class="flex items-center justify-between mb-1">
-                           <div class="w-4 h-4 bg-blue-500 rounded flex items-center justify-center">
-                             <svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <div class="flex items-center justify-between">
+                           <div class="w-5 h-5 bg-[#195384] rounded flex items-center justify-center">
+                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
                              </svg>
                            </div>
                            <div class="text-right">
-                             <div class="text-xs text-blue-600 font-medium">Final AHP</div>
+                             <div class="text-xs text-blue-700 font-medium">Basic Pay</div>
+                             <div class="text-sm font-bold text-blue-800">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-blue-800">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</div>
-                         <div class="text-xs text-blue-600">Basic Pay</div>
                        </div>
 
                        <!-- Daily Rate -->
                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-2 border border-green-200">
-                         <div class="flex items-center justify-between mb-1">
-                           <div class="w-4 h-4 bg-green-500 rounded flex items-center justify-center">
-                             <svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                         <div class="flex items-center justify-between">
+                           <div class="w-5 h-5 bg-green-600 rounded flex items-center justify-center">
+                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                              </svg>
                            </div>
                            <div class="text-right">
-                             <div class="text-xs text-green-600 font-medium">Daily Rate</div>
+                             <div class="text-xs text-green-700 font-medium">Daily Rate</div>
+                             <div class="text-sm font-bold text-green-800">£{{ parseFloat(result.dailyAhpWithBasicPay).toFixed(2) }}</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-green-800">£{{ parseFloat(result.dailyAhpWithBasicPay).toFixed(2) }}</div>
-                         <div class="text-xs text-green-600">Per Day</div>
                        </div>
 
                        <!-- Hourly Rate -->
-                       <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-lg p-2 border border-purple-200">
-                         <div class="flex items-center justify-between mb-1">
-                           <div class="w-4 h-4 bg-purple-500 rounded flex items-center justify-center">
-                             <svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-2 border border-gray-300">
+                         <div class="flex items-center justify-between">
+                           <div class="w-5 h-5 bg-gray-600 rounded flex items-center justify-center">
+                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                              </svg>
                            </div>
                            <div class="text-right">
-                             <div class="text-xs text-purple-600 font-medium">Hourly Rate</div>
+                             <div class="text-xs text-gray-700 font-medium">Hourly Rate</div>
+                             <div class="text-sm font-bold text-gray-800">£{{result.hourlyAhpWithBasicPay? parseFloat(result.hourlyAhpWithBasicPay).toFixed(2) :0}}</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-purple-800">£{{result.hourlyAhpWithBasicPay? parseFloat(result.hourlyAhpWithBasicPay).toFixed(2) :0}}</div>
-                         <div class="text-xs text-purple-600">Per Hour</div>
                        </div>
 
-                       <!-- Weeks Analyzed -->
-                       <div class="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-2 border border-orange-200">
-                         <div class="flex items-center justify-between mb-1">
-                           <div class="w-4 h-4 bg-orange-500 rounded flex items-center justify-center">
-                             <svg class="w-2 h-2 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                       <!-- Weeks Eligible -->
+                       <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-2 border border-blue-200">
+                         <div class="flex items-center justify-between">
+                           <div class="w-5 h-5 bg-[#195384] rounded flex items-center justify-center">
+                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                              </svg>
                            </div>
                            <div class="text-right">
-                             <div class="text-xs text-orange-600 font-medium">Weeks</div>
+                             <div class="text-xs text-blue-700 font-medium">Weeks Eligible</div>
+                             <div class="text-sm font-bold text-blue-800">{{ result.EligibleWeeksFound }}</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-orange-800">{{ result.TotalWeeksAnalyzed }}</div>
-                         <div class="text-xs text-orange-600">{{ result.EligibleWeeksFound }} Eligible</div>
                        </div>
                      </div>
 
-                     <!-- Detailed Breakdown -->
-                     <div class="space-y-3">
-                       <!-- Basic Pay Analysis -->
-                       <div class="bg-gray-50 rounded-xl p-3">
-                         <h5 class="text-sm font-semibold text-gray-800 mb-2 flex items-center">
-                           <div class="w-5 h-5 bg-blue-500 rounded flex items-center justify-center mr-2">
-                             <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                             </svg>
-                           </div>
-                           Basic Pay Analysis
-                         </h5>
-                         
-                         <div class="space-y-2 text-xs">
-                           <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                             <span class="text-gray-600">Weekly Base Salary</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.WeeklyBaseSalary).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                             <span class="text-gray-600">Total Eligible Pay</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.TotalEligiblePayBasic).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                             <span class="text-gray-600">Calculated AHP</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.CalculatedAhpWithBasicPay).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1 bg-blue-50 rounded px-2">
-                             <span class="text-blue-700 font-medium">Final AHP</span>
-                             <span class="text-blue-800 font-bold">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</span>
-                           </div>
-                         </div>
-                       </div>
-
-                       <!-- All Components Analysis -->
-                       <div class="bg-gray-50 rounded-xl p-3">
-                         <h5 class="text-sm font-semibold text-gray-800 mb-2 flex items-center">
-                           <div class="w-5 h-5 bg-green-500 rounded flex items-center justify-center mr-2">
-                             <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                             </svg>
-                           </div>
-                           All Components Analysis
-                         </h5>
-                         
-                         <div class="space-y-2 text-xs">
-                           <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                             <span class="text-gray-600">Total Eligible Pay</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.TotalEligiblePayWithAllEligibleComponents).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1 border-b border-gray-200">
-                             <span class="text-gray-600">Calculated AHP</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.CalculatedAhpWithAllEligibleComponents).toFixed(2) }}</span>
-                           </div>
-                            <div class="flex justify-between items-center py-1 bg-green-50 rounded px-2">
-                             <span class="text-blue-700 font-medium">Final AHP</span>
-                             <span class="text-blue-800 font-bold">£{{ parseFloat(result.AHPWithAllEligibleComponents).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1">
-                             <span class="text-gray-600">Daily Rate</span>
-                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.dailyAhpWithAllEligibleComponents).toFixed(2) }}</span>
-                           </div>
-                           <div class="flex justify-between items-center py-1">
-                             <span class="text-gray-600">Hourly Rate</span>
-                             <span class="font-semibold text-gray-800">£{{result.hourlyAhpWithAllEligibleComponents? parseFloat(result.hourlyAhpWithAllEligibleComponents).toFixed(2):0 }}</span>
-                           </div>
-                         </div>
+                     <!-- Click to View Details -->
+                     <div class="mt-3 text-center">
+                       <div class="text-xs text-gray-500 flex items-center justify-center">
+                         <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                         </svg>
+                         Click to view details
                        </div>
                      </div>
                    </div>
@@ -300,12 +232,200 @@
       </div>
     </div>
   </div>
+
+  <!-- Employee Details Dialog -->
+  <div v-if="showModal" class="fixed inset-0 z-50 pointer-events-none" @click="closeModal">
+    <!-- Dialog container - centered in main content area -->
+    <div class="flex items-center justify-center min-h-screen px-4 py-4" style="background-color: rgba(0, 0, 0, 0.6);">
+      <!-- Dialog panel -->
+      <div class="relative w-full max-w-4xl pointer-events-auto" @click.stop>
+        <!-- Main Content Section -->
+        <div class="bg-white rounded-2xl shadow-2xl border border-gray-200 p-8 mx-auto">
+          <!-- Modal Header -->
+          <div class="flex items-center justify-between mb-8">
+                 <div class="flex items-center">
+                   <div class="w-16 h-16 bg-gradient-to-br from-[#195384] to-[#11376D] rounded-xl flex items-center justify-center mr-4 shadow-lg border border-blue-200">
+                     <UserIcon class="w-10 h-10 text-white" />
+                   </div>
+                   <div>
+                     <h3 class="text-2xl font-bold text-gray-800">{{ selectedEmployee?.EmployeeNumber }}</h3>
+                     <p class="text-sm text-gray-600">{{ selectedEmployee?.CompanyNumber }} • {{ selectedEmployee?.TenantCode }}</p>
+                   </div>
+                 </div>
+            <div class="flex items-center space-x-4">
+              <button @click="navigateToOverride(selectedEmployee)" class="inline-flex items-center px-6 py-3 bg-gradient-to-r from-[#195384] to-[#11376D] text-white rounded-xl hover:shadow-xl hover:scale-105 transition-all duration-200 font-semibold text-sm">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                Override AHP
+              </button>
+              <button @click="closeModal" class="inline-flex items-center justify-center w-10 h-10 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all duration-200">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+      </button>
+            </div>
+        </div>
+
+          <!-- Modal Content -->
+          <div v-if="selectedEmployee" class="space-y-8">
+            <!-- Key Metrics Overview -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <!-- Basic Pay AHP -->
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="w-8 h-8 bg-[#195384] rounded flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                    </svg>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-blue-700 font-medium">Basic Pay AHP</div>
+                    <div class="text-lg font-bold text-blue-800">£{{ parseFloat(selectedEmployee.AHPWithBasicPay).toFixed(2) }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Daily Rate -->
+              <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-4 border border-green-200">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-green-700 font-medium">Daily Rate</div>
+                    <div class="text-lg font-bold text-green-800">£{{ parseFloat(selectedEmployee.dailyAhpWithBasicPay).toFixed(2) }}</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Hourly Rate -->
+              <div class="bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg p-4 border border-gray-300">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="w-8 h-8 bg-gray-600 rounded flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-gray-700 font-medium">Hourly Rate</div>
+                    <div class="text-lg font-bold text-gray-800">£{{selectedEmployee.hourlyAhpWithBasicPay? parseFloat(selectedEmployee.hourlyAhpWithBasicPay).toFixed(2) :0}}</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Weeks Analyzed -->
+              <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
+                <div class="flex items-center justify-between mb-2">
+                  <div class="w-8 h-8 bg-[#195384] rounded flex items-center justify-center">
+                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                    </svg>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs text-blue-700 font-medium">Weeks Analyzed</div>
+                    <div class="text-lg font-bold text-blue-800">{{ selectedEmployee.TotalWeeksAnalyzed }}</div>
+                    <div class="text-xs text-blue-600">{{ selectedEmployee.EligibleWeeksFound }} Eligible</div>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+          <!-- Detailed Analysis -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Basic Pay Analysis -->
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 p-6">
+              <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <div class="w-8 h-8 bg-[#195384] rounded flex items-center justify-center mr-3">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                  </svg>
+                </div>
+                Basic Pay Analysis
+              </h4>
+              
+              <div class="space-y-3">
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span class="text-gray-600">Weekly Base Salary</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.WeeklyBaseSalary).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span class="text-gray-600">Total Eligible Pay</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.TotalEligiblePayBasic).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span class="text-gray-600">Calculated AHP</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.CalculatedAhpWithBasicPay).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2 bg-blue-100 rounded-lg px-3">
+                  <span class="text-blue-800 font-medium">Final AHP</span>
+                  <span class="text-blue-900 font-bold text-lg">£{{ parseFloat(selectedEmployee.AHPWithBasicPay).toFixed(2) }}</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- All Components Analysis -->
+            <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-lg border border-green-200 p-6">
+              <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                <div class="w-8 h-8 bg-green-600 rounded flex items-center justify-center mr-3">
+                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                  </svg>
+                </div>
+                All Components Analysis
+              </h4>
+              
+              <div class="space-y-3">
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span class="text-gray-600">Total Eligible Pay</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.TotalEligiblePayWithAllEligibleComponents).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                  <span class="text-gray-600">Calculated AHP</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.CalculatedAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2 bg-green-100 rounded-lg px-3">
+                  <span class="text-green-800 font-medium">Final AHP</span>
+                  <span class="text-green-900 font-bold text-lg">£{{ parseFloat(selectedEmployee.AHPWithAllEligibleComponents).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-gray-600">Daily Rate</span>
+                  <span class="font-semibold text-gray-800">£{{ parseFloat(selectedEmployee.dailyAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                </div>
+                <div class="flex justify-between items-center py-2">
+                  <span class="text-gray-600">Hourly Rate</span>
+                  <span class="font-semibold text-gray-800">£{{selectedEmployee.hourlyAhpWithAllEligibleComponents? parseFloat(selectedEmployee.hourlyAhpWithAllEligibleComponents).toFixed(2):0 }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Calculation Info -->
+          <div class="bg-gray-50 rounded-xl p-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center">
+                <svg class="w-5 h-5 text-gray-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <span class="text-sm text-gray-600">Calculation Date</span>
+              </div>
+              <span class="text-sm font-medium text-gray-800">{{ formatDate(selectedEmployee.CalculationDate) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
 </template>
 
 <script setup>
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import { UserIcon } from '@heroicons/vue/24/outline'
 import Topbar from '../../components/Topbar.vue'
 
 const selectedFile = ref(null)
@@ -323,6 +443,10 @@ const toastType = ref('success') // 'success' or 'error'
 // Search state
 const searchQuery = ref('')
 const filteredResults = ref([])
+
+// Modal state
+const showModal = ref(false)
+const selectedEmployee = ref(null)
 
 const router = useRouter()
 
@@ -462,10 +586,24 @@ async function uploadFile() {
   }
 }
 
+// Modal functions
+function openEmployeeModal(employee) {
+  selectedEmployee.value = employee
+  showModal.value = true
+}
+
+function closeModal() {
+  showModal.value = false
+  selectedEmployee.value = null
+}
+
 // Navigation function
 function navigateToOverride(employee) {
   // Store employee data in sessionStorage to pass to the override page
   sessionStorage.setItem('selectedEmployee', JSON.stringify(employee))
+  
+  // Close modal if open
+  closeModal()
   
   // Navigate to the override page
   router.push({ name: 'Overide AhpResult' })
