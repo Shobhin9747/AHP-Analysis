@@ -1,172 +1,232 @@
 <template>
   <Topbar />
-  <div class="bg-white rounded p-2">
-    <!-- Main Content -->
-    <div class="max-w-8xl mx-auto px-4 py-3">
-      <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        
-        <!-- Employee Info Section -->
-        <div class="xl:col-span-1">
-          <div class="bg-white/80 backdrop-blur-sm shadow-xl rounded-3xl p-6 border border-white/20 sticky">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-              <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-              </svg>
-              Employee Details
-            </h2>
+  <div class="min-h-screen bg-gray-50 p-4">
+    <!-- Page Header -->
+    <!-- <div class="mx-auto px-4 py-6">
+      <div class="flex items-center justify-between">
+        <button @click="goBack" class="inline-flex items-center px-4 py-2 bg-[#195384] text-white rounded-lg hover:bg-[#11376D] transition-colors">
+          <ArrowLeftIcon class="w-4 h-4 mr-2" />
+          Back to AHP Results
+        </button>
+      </div>
+    </div> -->
 
-            <div v-if="selectedEmployee" class="space-y-4">
-              <!-- Employee Header -->
-              <div class="bg-gradient-to-r from-[#195384] to-[#11376D] p-4 text-white rounded-xl">
-                <div class="text-center">
-                  <h3 class="text-lg font-bold mb-1">{{ selectedEmployee.EmployeeNumber }}</h3>
+    <!-- Main Content -->
+    <div class="max-w-full mx-auto px-4 pb-8">
+      <div v-if="selectedEmployee" class="flex flex-col space-y-8">
+ 
+        <!-- Top Section: Input Form & Employee Details -->
+        <div class="flex flex-col space-y-6">
+          <!-- Employee Info Card -->
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 flex-shrink-0">
+            <div class="flex items-center justify-between">
+              <!-- Employee Info -->
+              <div class="flex items-center">
+                <div class="w-10 h-10 bg-[#195384] rounded-lg flex items-center justify-center mr-3">
+                  <UserIcon class="w-5 h-5 text-white" />
+                </div>
+                <div>
+                  <h2 class="text-lg font-semibold text-gray-800">{{ selectedEmployee.EmployeeNumber }}</h2>
                  
                 </div>
               </div>
 
               <!-- Current AHP Values -->
-              <div class="bg-gray-50 rounded-xl p-4">
-                <h4 class="text-sm font-semibold text-gray-800 mb-3">Current AHP Values</h4>
-                <div class="space-y-2 text-sm">
-                  <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                    <span class="text-gray-600">Basic Pay AHP:</span>
-                    <span class="font-semibold text-gray-800">{{ parseFloat(selectedEmployee.AHPWithBasicPay).toFixed(2) }}</span>
+              <div class="flex items-center space-x-4">
+                <div class="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                  <div class="flex items-center mb-1">
+                    <CurrencyDollarIcon class="w-4 h-4 text-[#195384] mr-1" />
+                    <span class="text-xs font-medium text-blue-800">Basic Pay AHP</span>
                   </div>
-                  <div class="flex justify-between items-center py-2">
-                    <span class="text-gray-600">All Components AHP:</span>
-                    <span class="font-semibold text-gray-800">{{ parseFloat(selectedEmployee.AHPWithAllEligibleComponents).toFixed(2) }}</span>
+                  <div class="text-sm font-bold text-blue-900">£{{
+                    parseFloat(selectedEmployee.AHPWithBasicPay).toFixed(2) }}</div>
+                </div>
+
+                <div class="bg-green-50 rounded-lg p-3 border border-green-200">
+                  <div class="flex items-center mb-1">
+                    <ChartBarIcon class="w-4 h-4 text-green-600 mr-1" />
+                    <span class="text-xs font-medium text-green-800">All Components AHP</span>
                   </div>
+                  <div class="text-sm font-bold text-green-900">£{{
+                    parseFloat(selectedEmployee.AHPWithAllEligibleComponents).toFixed(2) }}</div>
                 </div>
               </div>
-
-              <!-- Back Button -->
-              <button
-                @click="goBack"
-                class="w-full py-3 px-4 rounded-xl font-semibold text-white bg-gradient-to-r from-gray-600 to-gray-700 hover:from-gray-700 hover:to-gray-800 transition-all duration-300"
-              >
-                <div class="flex items-center justify-center">
-                  <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                  </svg>
-                  Back to Results
-                </div>
-              </button>
-            </div>
-
-            <div v-else class="text-center py-8">
-              <div class="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-                <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-                </svg>
-              </div>
-              <h3 class="text-lg font-semibold text-gray-800 mb-2">No Employee Selected</h3>
-              <p class="text-gray-600 text-sm">Please go back to select an employee</p>
             </div>
           </div>
-        </div>
 
-        <!-- Override Form Section -->
-        <div class="xl:col-span-2">
-          <div v-if="selectedEmployee" class="space-y-6">
-            <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-              <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
-              </svg>
+          <!-- Override Form -->
+          <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
+              <PencilIcon class="w-5 h-5 text-gray-600 mr-2" />
               Override AHP Values
             </h3>
-            
-            <!-- Override Form -->
-            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
-              <form @submit.prevent="submitOverride" class="space-y-6">
-                <!-- Basic Pay AHP Input -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">
-                    New Basic Pay AHP
-                  </label>
-                  <input
-                    v-model="overrideData.newBasicPayAHP"
-                    type="number"
-                    step="0.01"
-                    required
-                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-lg"
-                    placeholder="Enter new AHP value"
-                  />
-                 
-                </div>
 
-                <!-- All Components AHP Input -->
-                <div>
-                  <label class="block text-sm font-medium text-gray-700 mb-2">
-                    Overide Reason
-                  </label>
-                  <input
-                   v-model="overrideData.OverrideReason"
-                    required
-                    class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-lg"
-                    placeholder="Enter Overide Reason"
-                  />
-                 
-                </div>
+            <form @submit.prevent="submitOverride" class="space-y-6">
+              <!-- Current AHP Input (Pre-filled) -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Current Basic Pay AHP
+                </label>
+                <input v-model="overrideData.newBasicPayAHP" type="number" step="0.01" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Enter new AHP value" />
+              </div>
 
-                <!-- Action Buttons -->
-                <div class="flex space-x-4 pt-4">
-                  <button
-                    type="submit"
-                    :disabled="isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason"
-                    :class="[
-                      'flex-1 py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300',
-                      isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 hover:scale-105 shadow-lg hover:shadow-xl'
-                    ]"
-                  >
-                    <div class="flex items-center justify-center">
-                      <svg v-if="isSubmittingOverride" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                      </svg>
-                      <svg v-else class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                      </svg>
-                      {{ isSubmittingOverride ? 'Submitting...' : 'Submit Override' }}
-                    </div>
-                  </button>
+              <!-- Override Reason -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">
+                  Override Reason
+                </label>
+                <input v-model="overrideData.OverrideReason" required
+                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                  placeholder="Enter override reason" />
+              </div>
 
-                  <button
-                    type="button"
-                    @click="resetValues"
-                    :disabled="isSubmittingOverride"
-                    :class="[
-                      'flex-1 py-4 px-6 rounded-xl font-semibold text-white transition-all duration-300',
-                      isSubmittingOverride
-                        ? 'bg-gray-400 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-red-600 to-pink-600 hover:from-red-700 hover:to-pink-700 hover:scale-105 shadow-lg hover:shadow-xl'
-                    ]"
-                  >
-                    <div class="flex items-center justify-center">
-                      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6"></path>
-                      </svg>
-                      Reverse AHP
-                    </div>
-                  </button>
-                </div>
-              </form>
+              <!-- Action Buttons -->
+              <div class="flex space-x-4 pt-4">
+                <button type="submit"
+                  :disabled="isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason"
+                  :class="[
+                    'flex-1 py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
+                    isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason
+                      ? 'bg-gray-400 cursor-not-allowed'
+                      : 'bg-gradient-to-r from-[#195384] to-[#11376D] hover:shadow-lg hover:scale-105'
+                  ]">
+                  <CheckIcon v-if="!isSubmittingOverride" class="w-5 h-5 mr-2" />
+                  <div v-if="isSubmittingOverride"
+                    class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                  {{ isSubmittingOverride ? 'Submitting...' : 'Submit Override' }}
+                </button>
 
-            </div>
-          </div>
-
-          <!-- Empty State -->
-          <div v-else class="bg-white rounded-2xl shadow-lg border border-gray-200 p-12 text-center">
-            <div class="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-              <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
-              </svg>
-            </div>
-            <h3 class="text-lg font-semibold text-gray-800 mb-2">No Employee Selected</h3>
-            <p class="text-gray-600 text-sm">Please go back to select an employee to override AHP values</p>
+                <button type="button" @click="resetValues" :disabled="isSubmittingOverride || isReversingAHP" :class="[
+                  'flex-1 py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
+                  isSubmittingOverride || isReversingAHP
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-[#195384] hover:bg-[#11376D] hover:scale-105'
+                ]">
+                  <ArrowPathIcon v-if="!isReversingAHP" class="w-5 h-5 mr-2" />
+                  <div v-if="isReversingAHP" class="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2">
+                  </div>
+                  {{ isReversingAHP ? 'Reversing...' : 'Reverse AHP' }}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
+
+        <!-- Bottom Section: Results -->
+        <div class="flex flex-col space-y-6">
+          <!-- Updated Analysis Results -->
+          <div v-if="updatedAnalysisData?.Employees?.length" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Basic Pay Analysis Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
+                <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center mr-2">
+                  <CurrencyDollarIcon class="w-4 h-4 text-white" />
+                </div>
+                Basic Pay Analysis
+              </h3>
+
+              <div v-for="employee in updatedAnalysisData.Employees" :key="employee.EmployeeNumber" class="space-y-4">
+                <!-- Basic Pay Analysis Details -->
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                    <span class="text-blue-700">Weekly Base Salary</span>
+                    <span class="font-semibold text-blue-800">£{{ parseFloat(employee.WeeklyBaseSalary).toFixed(2)
+                      }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                    <span class="text-blue-700">Total Eligible Pay</span>
+                    <span class="font-semibold text-blue-800">£{{ parseFloat(employee.TotalEligiblePayBasic).toFixed(2)
+                      }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 border-b border-blue-200">
+                    <span class="text-blue-700">Calculated AHP</span>
+                    <span class="font-semibold text-blue-800">£{{
+                      parseFloat(employee.CalculatedAhpWithBasicPay).toFixed(2) }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 bg-blue-100 rounded px-3">
+                    <span class="text-blue-800 font-medium">Final AHP</span>
+                    <span class="text-blue-900 font-bold text-lg">£{{ parseFloat(employee.AHPWithBasicPay).toFixed(2)
+                      }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-blue-700">Daily Rate</span>
+                    <span class="font-semibold text-blue-800">£{{ parseFloat(employee.dailyAhpWithBasicPay).toFixed(2)
+                      }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-blue-700">Hourly Rate</span>
+                    <span class="font-semibold text-blue-800">£{{ parseFloat(employee.hourlyAhpWithBasicPay).toFixed(2)
+                      }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- All Components Analysis Section -->
+            <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+              <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
+                <div class="w-6 h-6 bg-green-600 rounded flex items-center justify-center mr-2">
+                  <ChartBarIcon class="w-4 h-4 text-white" />
+                </div>
+                All Components Analysis
+              </h3>
+
+              <div v-for="employee in updatedAnalysisData.Employees" :key="employee.EmployeeNumber" class="space-y-4">
+                <!-- All Components Analysis Details -->
+                <div class="space-y-3 text-sm">
+                  <div class="flex justify-between items-center py-2 border-b border-green-200">
+                    <span class="text-green-700">Total Eligible Pay</span>
+                    <span class="font-semibold text-green-800">£{{
+                      parseFloat(employee.TotalEligiblePayWithAllEligibleComponents).toFixed(2) }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 border-b border-green-200">
+                    <span class="text-green-700">Calculated AHP</span>
+                    <span class="font-semibold text-green-800">£{{
+                      parseFloat(employee.CalculatedAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2 bg-green-100 rounded px-3">
+                    <span class="text-green-800 font-medium">Final AHP</span>
+                    <span class="text-green-900 font-bold text-lg">£{{
+                      parseFloat(employee.AHPWithAllEligibleComponents).toFixed(2) }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-green-700">Daily Rate</span>
+                    <span class="font-semibold text-green-800">£{{
+                      parseFloat(employee.dailyAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                  </div>
+                  <div class="flex justify-between items-center py-1">
+                    <span class="text-green-700">Hourly Rate</span>
+                    <span class="font-semibold text-green-800">£{{
+                      parseFloat(employee.hourlyAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty Results State -->
+          <div v-else class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div>
+              <div class="mx-auto w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+                <ChartBarIcon class="w-8 h-8 text-gray-400" />
+              </div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">No Results Yet</h3>
+              <p class="text-gray-600 text-sm">Submit an override to see updated analysis results here</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Empty State -->
+      <div v-else class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+        <div class="mx-auto w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center mb-4">
+          <ExclamationTriangleIcon class="w-8 h-8 text-gray-400" />
+        </div>
+        <h3 class="text-lg font-semibold text-gray-800 mb-2">No Employee Selected</h3>
+        <p class="text-gray-600 text-sm">Please go back to select an employee to override AHP values</p>
       </div>
     </div>
   </div>
@@ -176,6 +236,17 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
+import {
+  ArrowLeftIcon,
+  UserIcon,
+  CurrencyDollarIcon,
+  ChartBarIcon,
+  PencilIcon,
+  CheckIcon,
+  ArrowPathIcon,
+  CheckCircleIcon,
+  ExclamationTriangleIcon
+} from '@heroicons/vue/24/outline'
 import Topbar from '../../components/Topbar.vue'
 
 const router = useRouter()
@@ -186,15 +257,18 @@ const overrideData = ref({
   OverrideReason: ''
 })
 const isSubmittingOverride = ref(false)
+const isReversingAHP = ref(false)
 const overrideMessage = ref('')
 const overrideError = ref(false)
+const updatedAnalysisData = ref(null)
+const isLoadingAnalysis = ref(false)
 
 onMounted(() => {
   // Get employee data from sessionStorage
   const employeeData = sessionStorage.getItem('selectedEmployee')
   if (employeeData) {
     selectedEmployee.value = JSON.parse(employeeData)
-   
+
   }
 })
 
@@ -204,8 +278,59 @@ function goBack() {
   router.push({ name: 'AHP Analysis' })
 }
 
-function resetValues() {
-  
+async function resetValues() {
+  if (!selectedEmployee.value) {
+    return
+  }
+
+  isReversingAHP.value = true
+
+  try {
+    const payload = {
+      EmployeeNumber: selectedEmployee.value.EmployeeNumber,
+      CompanyNumber: selectedEmployee.value.CompanyNumber
+    }
+
+    const response = await axios.delete(
+      'https://as-dev-ahp-d0gjcde4facrabc3.uksouth-01.azurewebsites.net/api/override/v1/deleteahp',
+      {
+        data: payload,  // Send payload in the body
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+   
+    await fetchUpdatedAnalysis()
+
+  } catch (error) {
+    console.error('Error reversing AHP:', error)
+  } finally {
+    isReversingAHP.value = false
+  }
+}
+
+
+// Function to fetch updated analysis data
+async function fetchUpdatedAnalysis() {
+  if (!selectedEmployee.value) return
+
+  isLoadingAnalysis.value = true
+
+  try {
+    const response = await axios.get(
+      `https://as-dev-ahp-d0gjcde4facrabc3.uksouth-01.azurewebsites.net/api/Sync/v1/${selectedEmployee.value.TenantCode}/${selectedEmployee.value.CompanyNumber}?employeeNumber=${selectedEmployee.value.EmployeeNumber}`
+    )
+
+    updatedAnalysisData.value = response.data
+
+  } catch (error) {
+    console.error('Error fetching updated analysis:', error)
+    updatedAnalysisData.value = null
+  } finally {
+    isLoadingAnalysis.value = false
+  }
 }
 
 async function submitOverride() {
@@ -222,10 +347,10 @@ async function submitOverride() {
       EmployeeNumber: selectedEmployee.value.EmployeeNumber,
       CompanyNumber: selectedEmployee.value.CompanyNumber,
       AHPAmount: parseFloat(overrideData.value.newBasicPayAHP),
-      OverrideReason: parseFloat(overrideData.value.OverrideReason)
+      OverrideReason: overrideData.value.OverrideReason
     }
 
-   
+
     const response = await axios.post(
       'https://as-dev-ahp-d0gjcde4facrabc3.uksouth-01.azurewebsites.net/api/override/v1/updateahp',
       payload,
@@ -238,16 +363,16 @@ async function submitOverride() {
 
     overrideMessage.value = 'AHP override submitted successfully!'
     overrideError.value = false
-   
-    // Auto-redirect after successful submission
-    setTimeout(() => {
-      goBack()
-    }, 3000)
+
+    // Fetch updated analysis data after successful override
+    await fetchUpdatedAnalysis()
+
+
 
   } catch (error) {
-    
+
     let errorMessage = 'Override failed. '
-    
+
     overrideMessage.value = errorMessage
     overrideError.value = true
   } finally {
