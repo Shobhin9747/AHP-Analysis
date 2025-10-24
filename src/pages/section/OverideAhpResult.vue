@@ -35,7 +35,7 @@
               <div class="flex items-center space-x-4">
                 <div class="bg-blue-50 rounded-lg p-3 border border-blue-200">
                   <div class="flex items-center mb-1">
-                    <CurrencyDollarIcon class="w-4 h-4 text-[#195384] mr-1" />
+                    <CurrencyPoundIcon class="w-4 h-4 text-[#195384] mr-1" />
                     <span class="text-xs font-medium text-blue-800">Basic Pay AHP</span>
                   </div>
                   <div class="text-sm font-bold text-blue-900">£{{
@@ -144,7 +144,7 @@
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
               <h3 class="text-lg font-semibold text-gray-800 mb-6 flex items-center">
                 <div class="w-6 h-6 bg-blue-600 rounded flex items-center justify-center mr-2">
-                  <CurrencyDollarIcon class="w-4 h-4 text-white" />
+                  <CurrencyPoundIcon class="w-4 h-4 text-white" />
                 </div>
                 Basic Pay Analysis
               </h3>
@@ -260,7 +260,7 @@ import axios from 'axios'
 import {
   ArrowLeftIcon,
   UserIcon,
-  CurrencyDollarIcon,
+  CurrencyPoundIcon,
   ChartBarIcon,
   PencilIcon,
   CheckIcon,

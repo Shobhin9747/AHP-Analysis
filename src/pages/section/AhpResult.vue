@@ -110,11 +110,9 @@
                        <!-- Basic Pay -->
                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-2 border border-blue-200">
                          <div class="flex items-center justify-between">
-                           <div class="w-5 h-5 bg-[#195384] rounded flex items-center justify-center">
-                             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                             </svg>
-                           </div>
+                  <div class="w-5 h-5 bg-[#195384] rounded flex items-center justify-center">
+                    <CurrencyPoundIcon class="w-4 h-4 text-white" />
+                  </div>
                            <div class="text-right">
                              <div class="text-xs text-blue-700 font-medium">Basic Pay</div>
                              <div class="text-sm font-bold text-blue-800">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</div>
@@ -275,9 +273,7 @@
               <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-4 border border-blue-200">
                 <div class="flex items-center justify-between mb-2">
                   <div class="w-8 h-8 bg-[#195384] rounded flex items-center justify-center">
-                    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                    </svg>
+                    <CurrencyPoundIcon class="w-5 h-5 text-white" />
                   </div>
                   <div class="text-right">
                     <div class="text-xs text-blue-700 font-medium">Basic Pay AHP</div>
@@ -339,9 +335,7 @@
             <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg border border-blue-200 p-6">
               <h4 class="text-lg font-semibold text-gray-800 mb-4 flex items-center">
                 <div class="w-8 h-8 bg-[#195384] rounded flex items-center justify-center mr-3">
-                  <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                  </svg>
+                  <CurrencyPoundIcon class="w-5 h-5 text-white" />
                 </div>
                 Basic Pay Analysis
               </h4>
@@ -425,7 +419,7 @@
 import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
-import { UserIcon } from '@heroicons/vue/24/outline'
+import { UserIcon, CurrencyPoundIcon } from '@heroicons/vue/24/outline'
 import Topbar from '../../components/Topbar.vue'
 
 const selectedFile = ref(null)
