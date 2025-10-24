@@ -62,32 +62,35 @@
             </h3>
 
             <form @submit.prevent="submitOverride" class="space-y-6">
-              <!-- Current AHP Input (Pre-filled) -->
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Current Basic Pay AHP
-                </label>
-                <input v-model="overrideData.newBasicPayAHP" type="number" step="0.01" required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="Enter new AHP value" />
-              </div>
+              <!-- Input Fields Row -->
+              <div class="flex space-x-4">
+                <!-- Current AHP Input (Smaller space) -->
+                <div class="w-1/3">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Current Basic Pay AHP
+                  </label>
+                  <input v-model="overrideData.newBasicPayAHP" type="number" step="0.01" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="Enter new AHP value" />
+                </div>
 
-              <!-- Override Reason -->
-              <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">
-                  Override Reason
-                </label>
-                <input v-model="overrideData.OverrideReason" required
-                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
-                  placeholder="Enter override reason" />
+                <!-- Override Reason (Larger space) -->
+                <div class="w-2/3">
+                  <label class="block text-sm font-medium text-gray-700 mb-2">
+                    Override Reason
+                  </label>
+                  <input v-model="overrideData.OverrideReason" required
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    placeholder="Enter override reason" />
+                </div>
               </div>
 
               <!-- Action Buttons -->
-              <div class="flex space-x-4 pt-4">
+              <div class="flex justify-end space-x-4 pt-4">
                 <button type="submit"
                   :disabled="isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason"
                   :class="[
-                    'flex-1 py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
+                    'py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
                     isSubmittingOverride || !overrideData.newBasicPayAHP || !overrideData.OverrideReason
                       ? 'bg-gray-400 cursor-not-allowed'
                       : 'bg-gradient-to-r from-[#195384] to-[#11376D] hover:shadow-lg hover:scale-105'
@@ -99,7 +102,7 @@
                 </button>
 
                 <button type="button" @click="resetValues" :disabled="isSubmittingOverride || isReversingAHP" :class="[
-                  'flex-1 py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
+                  'py-3 px-6 rounded-lg font-semibold text-white transition-all duration-200 flex items-center justify-center',
                   isSubmittingOverride || isReversingAHP
                     ? 'bg-gray-400 cursor-not-allowed'
                     : 'bg-[#195384] hover:bg-[#11376D] hover:scale-105'
@@ -111,13 +114,31 @@
                 </button>
               </div>
             </form>
+
+            <!-- Success/Error Messages -->
+            <div v-if="overrideMessage" class="mt-4 p-4 rounded-lg" :class="overrideError ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'">
+              <div class="flex items-center">
+                <CheckCircleIcon v-if="!overrideError" class="w-5 h-5 text-green-600 mr-2" />
+                <ExclamationTriangleIcon v-else class="w-5 h-5 text-red-600 mr-2" />
+                <span :class="overrideError ? 'text-red-800' : 'text-green-800'" class="font-medium">{{ overrideMessage }}</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <!-- Bottom Section: Results -->
         <div class="flex flex-col space-y-6">
+          <!-- Loading State -->
+          <div v-if="isLoadingAnalysis" class="bg-white rounded-lg shadow-sm border border-gray-200 p-12 text-center">
+            <div class="flex flex-col items-center justify-center">
+              <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-[#195384] mb-4"></div>
+              <h3 class="text-lg font-semibold text-gray-800 mb-2">Updating Analysis...</h3>
+              <p class="text-gray-600 text-sm">Please wait while we fetch the latest data</p>
+            </div>
+          </div>
+
           <!-- Updated Analysis Results -->
-          <div v-if="updatedAnalysisData?.Employees?.length" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div v-else-if="updatedAnalysisData?.Employees?.length" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
             <!-- Basic Pay Analysis Section -->
             <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
@@ -284,6 +305,8 @@ async function resetValues() {
   }
 
   isReversingAHP.value = true
+  overrideMessage.value = ''
+  overrideError.value = false
 
   try {
     const payload = {
@@ -301,11 +324,22 @@ async function resetValues() {
       }
     );
 
-   
+    // Clear the form values
+    overrideData.value = {
+      newBasicPayAHP: '',
+      OverrideReason: ''
+    }
+
+    overrideMessage.value = 'AHP successfully reversed!'
+    overrideError.value = false
+    
+    // Fetch updated analysis data after successful reverse
     await fetchUpdatedAnalysis()
 
   } catch (error) {
     console.error('Error reversing AHP:', error)
+    overrideMessage.value = 'Failed to reverse AHP. Please try again.'
+    overrideError.value = true
   } finally {
     isReversingAHP.value = false
   }
@@ -367,11 +401,9 @@ async function submitOverride() {
     // Fetch updated analysis data after successful override
     await fetchUpdatedAnalysis()
 
-
-
   } catch (error) {
-
-    let errorMessage = 'Override failed. '
+    console.error('Error submitting override:', error)
+    let errorMessage = 'Override failed. Please try again.'
 
     overrideMessage.value = errorMessage
     overrideError.value = true
