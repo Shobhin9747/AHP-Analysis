@@ -6,135 +6,94 @@
 
     <!-- Main Content -->
     <div class="max-w-8xl mx-auto px-4 py-3">
-      <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-        
-        <!-- Upload Section -->
-        <div class="xl:col-span-1">
-          <div class="bg-white/80 backdrop-blur-sm shadow-xl rounded-3xl p-6 border border-white/20 sticky">
-            <h2 class="text-xl font-semibold text-gray-800 mb-6 flex items-center">
-              <svg class="w-5 h-5 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-              </svg>
-              Upload JSON File
-            </h2>
-
-            <!-- File Upload Section -->
-            <div >
-              <label class="block text-sm font-medium text-gray-700 mb-3">
-                Select JSON File
-              </label>
-              
-              <!-- Drag & Drop Area -->
+      <!-- Simple Upload Section -->
+      <div class="mb-8">
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-6 w-full">
+          <div class="flex items-center gap-4">
+            <!-- File Input -->
+            <div class="flex-1">
+      <input
+                ref="fileInput"
+        type="file"
+        @change="handleFileUpload"
+        accept=".json"
+                class="hidden"
+              />
               <div 
-                @drop="handleDrop"
-                @dragover.prevent
-                @dragenter.prevent
-                :class="[
-                  'relative border-2 border-dashed rounded-2xl p-6 text-center transition-all duration-300 cursor-pointer group',
-                  selectedFile ? 'border-green-400 bg-green-50' : 'border-gray-300 hover:border-blue-400 hover:bg-blue-50'
-                ]"
                 @click="$refs.fileInput.click()"
+                class="relative cursor-pointer"
               >
                 <input
-                  ref="fileInput"
-                  type="file"
-                  @change="handleFileUpload"
-                  accept=".json"
-                  class="hidden"
+                  type="text"
+                  :value="selectedFile ? selectedFile.name : 'Select JSON file...'"
+                  readonly
+                  class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#195384] focus:border-[#195384] transition-colors bg-gray-50 hover:bg-gray-100 cursor-pointer"
+                  placeholder="Select JSON file..."
                 />
-                
-                <div class="space-y-3">
-                  <div class="mx-auto w-10 h-10 rounded-full bg-gradient-to-r from-blue-100 to-purple-100 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                    <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
-                    </svg>
-                  </div>
-                  
-                  <div>
-                    <p class="text-sm font-medium text-gray-700 mb-1">
-                      {{ selectedFile ? selectedFile.name : 'Drop your JSON file here' }}
-                    </p>
-                    <p class="text-xs text-gray-500">
-                      {{ selectedFile ? 'File selected successfully' : 'or click to browse' }}
-                    </p>
-                  </div>
-                  
-                  <div v-if="selectedFile" class="inline-flex items-center px-2 py-1 rounded-full bg-green-100 text-green-800 text-xs font-medium">
-                    <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
-                      <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                    </svg>
-                    Ready to upload
-                  </div>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                  </svg>
                 </div>
               </div>
             </div>
 
             <!-- Upload Button -->
-            <button
-              @click="uploadFile"
+      <button
+        @click="uploadFile"
               :disabled="!selectedFile || isUploading"
               :class="[
-                'w-full py-3 mt-2 px-4 rounded-2xl font-semibold text-white transition-all duration-300 transform',
+                'px-8 py-3 rounded-xl font-semibold text-white transition-all duration-300 transform whitespace-nowrap',
                 selectedFile && !isUploading 
                   ? 'bg-gradient-to-r from-[#195384] to-[#11376D] hover:scale-105 shadow-lg hover:shadow-xl' 
                   : 'bg-gray-400 cursor-not-allowed'
               ]"
             >
-              <div class="flex items-center justify-center">
-                <svg v-if="isUploading" class="animate-spin -ml-1 mr-3 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <div class="flex items-center">
+                <svg v-if="isUploading" class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                   <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                   <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                 </svg>
                 <svg v-else class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
-                {{ isUploading ? 'Processing...' : 'Upload & Analyze' }}
+                {{ isUploading ? 'Processing...' : 'Upload' }}
               </div>
-            </button>
-
-            <!-- Status Message -->
-            <div v-if="uploadMessage" class="mt-4 p-3 rounded-xl" :class="uploadError ? 'bg-red-50 border border-red-200' : 'bg-green-50 border border-green-200'">
-              <div class="flex items-center">
-                <div :class="[
-                  'flex-shrink-0 w-6 h-6 rounded-full flex items-center justify-center',
-                  uploadError ? 'bg-red-100' : 'bg-green-100'
-                ]">
-                  <svg v-if="uploadError" class="w-3 h-3 text-red-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                  </svg>
-                  <svg v-else class="w-3 h-3 text-green-600" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                </div>
-                <div class="ml-2">
-                  <p class="text-xs font-medium" :class="uploadError ? 'text-red-800' : 'text-green-800'">
-                    {{ uploadMessage }}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-        
+      </button>
           </div>
-        </div>
 
-         <!-- Results Section -->
-         <div class="xl:col-span-2">
+        </div>
+      </div>
+
+      <!-- Results Section -->
+      <div>
            <div v-if="responseData && !uploadError" class="space-y-6">
            
 
              <!-- Employee Results Grid -->
              <div v-if="responseData.AHPResults?.length" class="space-y-6">
-               <h3 class="text-xl font-semibold text-gray-800 flex items-center">
-                 <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
-                 </svg>
-                 Employee Analysis Results
-               </h3>
+              <div class="flex justify-between w-full">
+                            <h3 class="text-xl font-semibold text-gray-800 flex items-center">
+                                <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                    </path>
+                                </svg>
+                                Employee Analysis Results
+                            </h3>
+                            <div class="relative flex items-center">
+                                <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                                    <SearchIcon />
+                                </div>
+                                 <input type="text" placeholder="Search by Employee Number..." v-model="searchQuery"
+                                     class="block w-80 pl-3 pr-10 py-2 border border-[#DAEBF8] rounded-full text-sm placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
+                            </div>
+                        </div>
                
                <!-- Employee Cards Grid -->
-               <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                 <div v-for="(result, index) in responseData.AHPResults" :key="index" 
+               <div v-if="filteredResults.length > 0" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                 <div v-for="(result, index) in filteredResults" :key="index" 
                       @click="navigateToOverride(result)" 
                       class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden cursor-pointer hover:shadow-xl transition-shadow duration-300">
                    <!-- Employee Header -->
@@ -166,7 +125,7 @@
                              <div class="text-xs text-blue-600 font-medium">Final AHP</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-blue-800">{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</div>
+                         <div class="text-sm font-bold text-blue-800">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</div>
                          <div class="text-xs text-blue-600">Basic Pay</div>
                        </div>
 
@@ -182,7 +141,7 @@
                              <div class="text-xs text-green-600 font-medium">Daily Rate</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-green-800">{{ parseFloat(result.dailyAhpWithBasicPay).toFixed(2) }}</div>
+                         <div class="text-sm font-bold text-green-800">£{{ parseFloat(result.dailyAhpWithBasicPay).toFixed(2) }}</div>
                          <div class="text-xs text-green-600">Per Day</div>
                        </div>
 
@@ -198,7 +157,7 @@
                              <div class="text-xs text-purple-600 font-medium">Hourly Rate</div>
                            </div>
                          </div>
-                         <div class="text-sm font-bold text-purple-800">{{result.hourlyAhpWithBasicPay? parseFloat(result.hourlyAhpWithBasicPay).toFixed(2) :0}}</div>
+                         <div class="text-sm font-bold text-purple-800">£{{result.hourlyAhpWithBasicPay? parseFloat(result.hourlyAhpWithBasicPay).toFixed(2) :0}}</div>
                          <div class="text-xs text-purple-600">Per Hour</div>
                        </div>
 
@@ -235,19 +194,19 @@
                          <div class="space-y-2 text-xs">
                            <div class="flex justify-between items-center py-1 border-b border-gray-200">
                              <span class="text-gray-600">Weekly Base Salary</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.WeeklyBaseSalary).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.WeeklyBaseSalary).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1 border-b border-gray-200">
                              <span class="text-gray-600">Total Eligible Pay</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.TotalEligiblePayBasic).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.TotalEligiblePayBasic).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1 border-b border-gray-200">
                              <span class="text-gray-600">Calculated AHP</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.CalculatedAhpWithBasicPay).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.CalculatedAhpWithBasicPay).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1 bg-blue-50 rounded px-2">
                              <span class="text-blue-700 font-medium">Final AHP</span>
-                             <span class="text-blue-800 font-bold">{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</span>
+                             <span class="text-blue-800 font-bold">£{{ parseFloat(result.AHPWithBasicPay).toFixed(2) }}</span>
                            </div>
                          </div>
                        </div>
@@ -266,29 +225,40 @@
                          <div class="space-y-2 text-xs">
                            <div class="flex justify-between items-center py-1 border-b border-gray-200">
                              <span class="text-gray-600">Total Eligible Pay</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.TotalEligiblePayWithAllEligibleComponents).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.TotalEligiblePayWithAllEligibleComponents).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1 border-b border-gray-200">
                              <span class="text-gray-600">Calculated AHP</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.CalculatedAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.CalculatedAhpWithAllEligibleComponents).toFixed(2) }}</span>
                            </div>
-                            <div class="flex justify-between items-center py-1 bg-blue-50 rounded px-2">
+                            <div class="flex justify-between items-center py-1 bg-green-50 rounded px-2">
                              <span class="text-blue-700 font-medium">Final AHP</span>
-                             <span class="text-blue-800 font-bold">{{ parseFloat(result.AHPWithAllEligibleComponents).toFixed(2) }}</span>
+                             <span class="text-blue-800 font-bold">£{{ parseFloat(result.AHPWithAllEligibleComponents).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1">
                              <span class="text-gray-600">Daily Rate</span>
-                             <span class="font-semibold text-gray-800">{{ parseFloat(result.dailyAhpWithAllEligibleComponents).toFixed(2) }}</span>
+                             <span class="font-semibold text-gray-800">£{{ parseFloat(result.dailyAhpWithAllEligibleComponents).toFixed(2) }}</span>
                            </div>
                            <div class="flex justify-between items-center py-1">
                              <span class="text-gray-600">Hourly Rate</span>
-                             <span class="font-semibold text-gray-800">{{result.hourlyAhpWithAllEligibleComponents? parseFloat(result.hourlyAhpWithAllEligibleComponents).toFixed(2):0 }}</span>
+                             <span class="font-semibold text-gray-800">£{{result.hourlyAhpWithAllEligibleComponents? parseFloat(result.hourlyAhpWithAllEligibleComponents).toFixed(2):0 }}</span>
                            </div>
                          </div>
                        </div>
                      </div>
                    </div>
                  </div>
+               </div>
+               
+               <!-- No Search Results -->
+               <div v-else-if="searchQuery.trim()" class="bg-white rounded-2xl shadow-lg border border-gray-200 p-12 text-center">
+                 <div class="mx-auto w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+                   <svg class="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                   </svg>
+                 </div>
+                 <h3 class="text-lg font-semibold text-gray-800 mb-2">No Employees Found</h3>
+                 <p class="text-gray-600 text-sm">No employees match your search for "{{ searchQuery }}"</p>
                </div>
              </div>
            </div>
@@ -306,11 +276,34 @@
         </div>
       </div>
     </div>
+
+  <!-- Toast Notification -->
+  <div v-if="showToast" class="fixed top-4 right-4 z-50 transform transition-all duration-300" :class="toastVisible ? 'translate-x-0 opacity-100' : 'translate-x-full opacity-0'">
+    <div class="bg-white rounded-xl shadow-2xl border border-gray-200 p-4 max-w-sm">
+      <div class="flex items-center">
+        <div class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center" :class="toastType === 'error' ? 'bg-red-100' : 'bg-green-100'">
+          <svg v-if="toastType === 'error'" class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+          </svg>
+          <svg v-else class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3 flex-1">
+          <p class="text-sm font-semibold" :class="toastType === 'error' ? 'text-red-800' : 'text-gray-800'">{{ toastMessage }}</p>
+        </div>
+        <button @click="hideToast" class="ml-3 flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import axios from 'axios'
 import Topbar from '../../components/Topbar.vue'
@@ -321,7 +314,59 @@ const uploadError = ref(false)
 const isUploading = ref(false)
 const responseData = ref(null)
 
+// Toast state
+const showToast = ref(false)
+const toastVisible = ref(false)
+const toastMessage = ref('')
+const toastType = ref('success') // 'success' or 'error'
+
+// Search state
+const searchQuery = ref('')
+const filteredResults = ref([])
+
 const router = useRouter()
+
+// Search functionality
+function filterEmployees() {
+  if (!responseData.value?.AHPResults) {
+    filteredResults.value = []
+    return
+  }
+  
+  if (!searchQuery.value.trim()) {
+    filteredResults.value = responseData.value.AHPResults
+    return
+  }
+  
+  filteredResults.value = responseData.value.AHPResults.filter(employee => 
+    employee.EmployeeNumber.toLowerCase().includes(searchQuery.value.toLowerCase())
+  )
+}
+
+// Watch for search query changes
+watch(searchQuery, () => {
+  filterEmployees()
+})
+
+// Toast functions
+function showToastNotification(message, type = 'success') {
+  toastMessage.value = message
+  toastType.value = type
+  showToast.value = true
+  toastVisible.value = true
+  
+  // Auto-hide after 4 seconds
+  setTimeout(() => {
+    hideToast()
+  }, 4000)
+}
+
+function hideToast() {
+  toastVisible.value = false
+  setTimeout(() => {
+    showToast.value = false
+  }, 300)
+}
 
 function formatDate(dateString) {
   const date = new Date(dateString)
@@ -336,16 +381,6 @@ function formatDate(dateString) {
 
 function handleFileUpload(event) {
   const file = event.target.files[0]
-  processFile(file)
-}
-
-function handleDrop(event) {
-  event.preventDefault()
-  const file = event.dataTransfer.files[0]
-  processFile(file)
-}
-
-function processFile(file) {
   if (file && file.type === 'application/json') {
     selectedFile.value = file
     uploadMessage.value = ''
@@ -353,14 +388,14 @@ function processFile(file) {
     responseData.value = null
   } else {
     selectedFile.value = null
-    uploadMessage.value = 'Please select a valid JSON file.'
+    showToastNotification('Please select a valid JSON file.', 'error')
     uploadError.value = true
   }
 }
 
 async function uploadFile() {
   if (!selectedFile.value) {
-    uploadMessage.value = 'No file selected.'
+    showToastNotification('No file selected.', 'error')
     uploadError.value = true
     return
   }
@@ -385,9 +420,12 @@ async function uploadFile() {
       }
     )
 
-    uploadMessage.value = 'Analysis completed successfully!'
+    // Show success toast instead of inline message
+    showToastNotification('Analysis completed successfully')
     uploadError.value = false
     responseData.value = response.data
+    // Initialize filtered results with all results
+    filteredResults.value = response.data.AHPResults || []
     console.log('Response:', response.data)
   } catch (error) {
    
@@ -399,7 +437,6 @@ async function uploadFile() {
       const statusText = error.response.statusText
       const responseData = error.response.data
       
-      console.error('Server error response:', responseData)
       
       errorMessage += `Server error (${status} ${statusText}). `
       
@@ -419,6 +456,7 @@ async function uploadFile() {
     uploadMessage.value = errorMessage
     uploadError.value = true
     responseData.value = null
+    showToastNotification(errorMessage, 'error')
   } finally {
     isUploading.value = false
   }
