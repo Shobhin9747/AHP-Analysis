@@ -393,6 +393,7 @@ import {
   MagnifyingGlassIcon as SearchIcon
 } from '@heroicons/vue/24/outline'
 import Topbar from '../../components/Topbar.vue'
+import apiClient from '../../helpers/apiClient'
 
 const selectedFile = ref(null)
 const uploadMessage = ref('')
@@ -483,6 +484,8 @@ function handleFileUpload(event) {
   }
 }
 
+
+
 async function uploadFile() {
   if (!selectedFile.value) {
     showToastNotification('No file selected.', 'error')
@@ -496,40 +499,26 @@ async function uploadFile() {
 
   try {
     const fileContent = await selectedFile.value.text()
-    
     const jsonData = JSON.parse(fileContent)
 
+    // Use the apiClient.post wrapper
+    const response = await apiClient.post('Sync/v1/calculate', jsonData)
 
-    const response = await axios.post(
-      'https://as-dev-ahp-d0gjcde4facrabc3.uksouth-01.azurewebsites.net/api/Sync/v1/calculate',
-      jsonData,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    )
-
-    // Show success toast instead of inline message
     showToastNotification('Analysis completed successfully')
     uploadError.value = false
-    responseData.value = response.data
-    // Initialize filtered results with all results
-    filteredResults.value = response.data.AHPResults || []
-    console.log('Response:', response.data)
-  } catch (error) {
-   
-    let errorMessage = 'Upload failed. '
+    responseData.value = response
+    filteredResults.value = response.AHPResults || []
     
+  } catch (error) {
+    let errorMessage = 'Upload failed. '
+
     if (error.response) {
-      // Server responded with error status
       const status = error.response.status
       const statusText = error.response.statusText
       const responseData = error.response.data
-      
-      
+
       errorMessage += `Server error (${status} ${statusText}). `
-      
+
       if (responseData && typeof responseData === 'object') {
         if (responseData.message) {
           errorMessage += responseData.message
@@ -541,8 +530,10 @@ async function uploadFile() {
       } else {
         errorMessage += 'Please check your JSON file format and try again.'
       }
-    } 
-    
+    } else if (error.message) {
+      errorMessage += error.message
+    }
+
     uploadMessage.value = errorMessage
     uploadError.value = true
     responseData.value = null
@@ -551,6 +542,7 @@ async function uploadFile() {
     isUploading.value = false
   }
 }
+
 
 // Modal functions
 function openEmployeeModal(employee) {
