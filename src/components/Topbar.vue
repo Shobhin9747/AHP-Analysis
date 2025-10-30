@@ -9,15 +9,7 @@
         </div>
 
 
-        <div class="ml-8">
-          <div class="relative">
-            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-             <SearchIcon/>
-            </div>
-            <input type="text" placeholder="Search..."
-              class="block w-80 pl-3 pr-10 py-2 border border-[#DAEBF8] rounded-full text-sm placeholder-gray-400 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent" />
-          </div>
-        </div>
+       
 
 
         <div class="flex-1"></div>

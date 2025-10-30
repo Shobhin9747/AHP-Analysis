@@ -16,9 +16,9 @@
       </div>
     </div>
 
-  
+
     <div class="flex-1 overflow-y-auto mt-6 px-2 pb-4 custom-scrollbar">
-     
+
       <div v-if="auth.user?.role === 'admin'">
         <div v-if="!drawerStore.isCollapsed" class="mb-6">
           <h3 class="text-white font-bold text-sm mb-3 px-2">Explore</h3>
@@ -104,7 +104,8 @@
         </ul>
       </div>
     </div>
-    <div v-if="!drawerStore.isCollapsed && auth.user?.role=='employee'"  class="flex items-center gap-3 p-3  border-white/10 flex-shrink-0">
+    <div v-if="!drawerStore.isCollapsed && auth.user?.role == 'employee'"
+      class="flex items-center gap-3 p-3  border-white/10 flex-shrink-0">
       <div class="flex items-center justify-between bg-blue-50 p-4 gap-6 rounded-md">
         <!-- User Info -->
         <div class="flex items-center gap-2 whitespace-nowrap">
@@ -117,11 +118,11 @@
           <span class="text-gray-800 font-small">Vipin Nair</span>
         </div>
 
-        
+
         <div class="relative">
           <NotificationIcon />
 
-          
+
           <span class="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
         </div>
 
@@ -165,7 +166,9 @@ const exploreItems = computed(() => {
       { name: "Overview", path: "/admin", icon: CustomIcon },
       // { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
       // { name: "Help & Support", path: "/admin/support", icon: CustomIcon },
-      { name: "Ahp Analysis", path: "/admin/ahpResult", icon: CustomIcon },
+      { name: "Get All Employee", path: "/admin/employeeList", icon: CustomIcon },
+      { name: "Holiday Pay Calculator", path: "/admin/HolidayPayCalculator", icon: CustomIcon },
+      { name: "Overide & Reverse", path: "/admin/ahpResult", icon: CustomIcon },
     ];
   }
 

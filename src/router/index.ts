@@ -16,6 +16,8 @@ import CompanyList from "../pages/company/CompanyList.vue";
 import CompanyDetails from "../pages/company/CompanyDetails.vue";
 import AhpResult from "../pages/section/AhpResult.vue";
 import OverideAhpResult from "../pages/section/OverideAhpResult.vue";
+import HolidayPayCalculator from "../pages/section/HolidayPayCalculator.vue";
+import EmployeeList from "../pages/section/EmployeeList.vue";
 
 const routes = [
   {
@@ -63,6 +65,8 @@ const routes = [
       { path: "reports", name: "AdminReports", component: Settings },
       { path: "ahpResult", name: "AHP Analysis", component: AhpResult },
       { path: "OverideAHPResult", name: "Overide AhpResult", component: OverideAhpResult },
+      { path: "employeeList", name: "Employee", component: EmployeeList },
+      { path: "HolidayPayCalculator", name: "Holiday Pay Calculator", component: HolidayPayCalculator },
       {
         path: "england-wales",
         name: "England & Wales",
