@@ -167,8 +167,9 @@ const exploreItems = computed(() => {
       // { name: "Reports & Download", path: "/admin/reports", icon: CustomIcon },
       // { name: "Help & Support", path: "/admin/support", icon: CustomIcon },
       { name: "Get All Employee", path: "/admin/employeeList", icon: CustomIcon },
+       { name: "Overide & Reverse", path: "/admin/ahpResult", icon: CustomIcon },
       { name: "Holiday Pay Calculator", path: "/admin/HolidayPayCalculator", icon: CustomIcon },
-      { name: "Overide & Reverse", path: "/admin/ahpResult", icon: CustomIcon },
+     
     ];
   }
 
