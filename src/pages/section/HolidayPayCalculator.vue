@@ -79,8 +79,9 @@
 <script setup>
 import Topbar from '../../components/Topbar.vue';
 import HolidayPayEmployeeCard from '../../components/HolidayPayEmployeeCard.vue';
-import { ref, computed, watch } from 'vue';
+import { ref} from 'vue';
 import apiClient from '../../helpers/apiClient';
+import { usePayComponentsStore } from '../../store/PayComponents'
 
 const selectedFile = ref(null)
 const employeesList = ref([])
@@ -89,11 +90,9 @@ const selectedTenantCode = ref('MAPI000DTA')
 const selectedCompanyNumber = ref('COMP001')
 const selectedEmployeeIndex = ref(-1) // -1 => All
 
-
-
+const payComponentsStore = usePayComponentsStore()
 
 // no computed filtering; we call API with optional employeeNumber instead
-
 
 
 const holidaySummary = ref({
@@ -179,6 +178,16 @@ async function loadEmployeeData() {
         employeesList.value = mappedEmployees
         allEmployees.value = mappedEmployees
         selectedEmployeeIndex.value = -1
+
+        // Populate PayComponents store with the loaded employees' pay components
+        payComponentsStore.setEmployees(
+            mappedEmployees.map(e => ({
+                employeeNumber: e.EmployeeNumber,
+                companyNumber: e.CompanyNumber,
+                tenantCode: e.TenantCode,
+                payComponents: e.PayComponents || []
+            }))
+        )
     } catch (e) {
         console.error('Failed to parse uploaded JSON:', e)
     }

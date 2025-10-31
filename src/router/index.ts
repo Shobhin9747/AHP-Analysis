@@ -6,7 +6,6 @@ import Settings from "../pages/Settings.vue";
 import Jurisdiction from "../pages/Jurisdiction.vue";
 import Company from "../pages/Company.vue";
 import ContractType from "../pages/ContractType.vue";
-import PayComponent from "../pages/PayComponent.vue";
 import HolidayPolicy from "../pages/HolidayPolicy.vue";
 import { useAuthStore } from "../store/Auth";
 import HolidayPayOverview from "../pages/HolidayPayOverview.vue";
@@ -18,6 +17,7 @@ import AhpResult from "../pages/section/AhpResult.vue";
 import OverideAhpResult from "../pages/section/OverideAhpResult.vue";
 import HolidayPayCalculator from "../pages/section/HolidayPayCalculator.vue";
 import EmployeeList from "../pages/section/EmployeeList.vue";
+import PayComponent from "../pages/PayComponent.vue";
 
 const routes = [
   {
@@ -52,7 +52,7 @@ const routes = [
         path: "holiday-list",
         name: "HolidayList",
         component: HolidayList,
-      },
+      }
     ],
   },
   {
@@ -67,6 +67,7 @@ const routes = [
       { path: "OverideAHPResult", name: "Overide AhpResult", component: OverideAhpResult },
       { path: "employeeList", name: "Employee", component: EmployeeList },
       { path: "HolidayPayCalculator", name: "Holiday Pay Calculator", component: HolidayPayCalculator },
+      { path: 'payComponents', name: 'Pay Components', component: PayComponent },
       {
         path: "england-wales",
         name: "England & Wales",
