@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia'
-import { ref } from 'vue'
 
 interface PayComponentItem {
   payDate?: string
@@ -16,28 +15,26 @@ interface PayComponentsState {
   payComponents: PayComponentItem[]
 }
 
-export const usePayComponentsStore = defineStore('payComponents', () => {
-  const selected = ref<PayComponentsState | null>(null)
-  const employees = ref<PayComponentsState[]>([])
-
-  function setSelected(data: PayComponentsState) {
-    selected.value = data
+export const usePayComponentsStore = defineStore('payComponents', {
+  state: () => ({
+    selected: null as PayComponentsState | null,
+    employees: [] as PayComponentsState[],
+    allEmployees: [] as PayComponentsState[],
+  }),
+  actions: {
+    setSelected(data: PayComponentsState) {
+      this.selected = data
+    },
+    setEmployees(list: PayComponentsState[]) {      
+      this.employees = Array.isArray(list) ? list : []
+    },
+    setAllEmployees(list: PayComponentsState[]) {
+      this.allEmployees = Array.isArray(list) ? list : []
+    },
+    clear() {
+      this.selected = null
+      this.employees = []
+      this.allEmployees = []
+    }
   }
-
-  function setEmployees(list: PayComponentsState[]) {
-    employees.value = Array.isArray(list) ? list : []
-  }
-
-  function getByEmployeeNumber(employeeNumber: string | number): PayComponentsState | null {
-    const num = String(employeeNumber)
-    const found = employees.value.find(e => String(e.employeeNumber) === num)
-    return found || null
-  }
-
-  function clear() {
-    selected.value = null
-    employees.value = []
-  }
-
-  return { selected, employees, setSelected, setEmployees, getByEmployeeNumber, clear }
 })

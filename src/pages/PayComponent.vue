@@ -58,40 +58,18 @@
 
 <script setup>
 import Topbar from '../components/Topbar.vue'
-import { ref, computed, onMounted } from 'vue'
+import { computed } from 'vue'
 import { usePayComponentsStore } from '../store/PayComponents'
 import { PencilIcon, TrashIcon } from '@heroicons/vue/24/outline'
 
 const store = usePayComponentsStore()
-const employeeData = ref({ employeeNumber: '', companyNumber: '', tenantCode: '', payComponents: [] })
 
-onMounted(() => {
-  if (store.selected) {
-    employeeData.value = {
-      employeeNumber: store.selected.employeeNumber,
-      companyNumber: store.selected.companyNumber,
-      tenantCode: store.selected.tenantCode,
-      payComponents: store.selected.payComponents || []
-    }
-    return
-  }
-  // If a single employee exists in store, use it
-  if (store.employees && store.employees.length === 1) {
-    const e = store.employees[0]
-    employeeData.value = {
-      employeeNumber: e.employeeNumber,
-      companyNumber: e.companyNumber,
-      tenantCode: e.tenantCode,
-      payComponents: e.payComponents || []
-    }
-    return
-  }
-  // Fallback to sessionStorage if page reloaded and store cleared
-  try {
-    const raw = sessionStorage.getItem('payComponentEmployeeData')
-    if (raw) employeeData.value = JSON.parse(raw)
-  } catch {}
-})
+const employeeData = computed(() => ({
+  employeeNumber: store.selected?.employeeNumber || '',
+  companyNumber: store.selected?.companyNumber || '',
+  tenantCode: store.selected?.tenantCode || '',
+  payComponents: store.selected?.payComponents || []
+}))
 
 function fmt(v) {
   const n = Number(v)
