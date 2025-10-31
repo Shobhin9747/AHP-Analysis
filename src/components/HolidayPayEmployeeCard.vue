@@ -195,6 +195,7 @@
 
 <script setup>
 import { useRouter } from 'vue-router';
+import { usePayComponentsStore } from '../store/PayComponents'
 
 
 const router = useRouter();
@@ -208,6 +209,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['calculate'])
+const payComponentsStore = usePayComponentsStore()
 
 function emitCalculate() {
     emit('calculate', props.employeeData)
@@ -215,17 +217,12 @@ function emitCalculate() {
 
 function navigateToPayComponent() {
     if (props.employeeData) {
-        const payload = {
-            employeeNumber: props.employeeData.EmployeeNumber,
-            companyNumber: props.employeeData.CompanyNumber,
-            tenantCode: props.employeeData.TenantCode,
+        payComponentsStore.setSelected({
+            employeeNumber: String(props.employeeData.EmployeeNumber),
+            companyNumber: String(props.employeeData.CompanyNumber),
+            tenantCode: String(props.employeeData.TenantCode),
             payComponents: props.employeeData.PayComponents || []
-        }
-        try {
-            sessionStorage.setItem('payComponentEmployeeData', JSON.stringify(payload))
-        } catch (e) {
-            // no-op
-        }
+        })
     }
     router.push('/admin/payComponents')
 }

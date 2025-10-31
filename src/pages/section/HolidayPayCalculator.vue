@@ -41,7 +41,7 @@
                                         class="appearance-none bg-white border border-gray-300 rounded-lg px-3 py-1.5 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent min-w-[120px]"
                                         @change="onEmployeeChange">
                                         <option value="-1">All</option>
-                                        <option v-for="(employee, index) in allEmployees" :key="employee.EmployeeNumber"
+                                        <option v-for="(employee, index) in payComponentsStore.allEmployees" :key="employee.EmployeeNumber || index"
                                             :value="index">
                                             {{ employee.EmployeeNumber }}
                                         </option>
@@ -79,19 +79,16 @@
 <script setup>
 import Topbar from '../../components/Topbar.vue';
 import HolidayPayEmployeeCard from '../../components/HolidayPayEmployeeCard.vue';
-import { ref} from 'vue';
+import { ref, computed } from 'vue';
 import apiClient from '../../helpers/apiClient';
 import { usePayComponentsStore } from '../../store/PayComponents'
 
 const selectedFile = ref(null)
-const employeesList = ref([])
-const allEmployees = ref([]) // Store all employees for the filter dropdown
+const payComponentsStore = usePayComponentsStore()
+const employeesList = computed(() => payComponentsStore.employees)
 const selectedTenantCode = ref('MAPI000DTA')
 const selectedCompanyNumber = ref('COMP001')
 const selectedEmployeeIndex = ref(-1) // -1 => All
-
-const payComponentsStore = usePayComponentsStore()
-
 // no computed filtering; we call API with optional employeeNumber instead
 
 
@@ -175,19 +172,10 @@ async function loadEmployeeData() {
             }
         })
 
-        employeesList.value = mappedEmployees
-        allEmployees.value = mappedEmployees
         selectedEmployeeIndex.value = -1
-
-        // Populate PayComponents store with the loaded employees' pay components
-        payComponentsStore.setEmployees(
-            mappedEmployees.map(e => ({
-                employeeNumber: e.EmployeeNumber,
-                companyNumber: e.CompanyNumber,
-                tenantCode: e.TenantCode,
-                payComponents: e.PayComponents || []
-            }))
-        )
+        // Store full employee data (includes EmployeeNumber, PayComponents, Leaves, etc.)
+        payComponentsStore.setAllEmployees(mappedEmployees)
+        payComponentsStore.setEmployees(mappedEmployees)
     } catch (e) {
         console.error('Failed to parse uploaded JSON:', e)
     }
@@ -195,24 +183,16 @@ async function loadEmployeeData() {
 
 
 function onEmployeeChange() {
-
-    if (allEmployees.value && allEmployees.value.length) {
+    if (payComponentsStore.allEmployees && payComponentsStore.allEmployees.length) {
         if (selectedEmployeeIndex.value === -1) {
-            employeesList.value = allEmployees.value
+            payComponentsStore.setEmployees(payComponentsStore.allEmployees)
             return
         }
-        const selected = allEmployees.value[selectedEmployeeIndex.value]
-        employeesList.value = selected ? [selected] : []
+        const selected = payComponentsStore.allEmployees[selectedEmployeeIndex.value]
+        payComponentsStore.setEmployees(selected ? [selected] : [])
         return
     }
-
-    if (selectedEmployeeIndex.value === -1) {
-        loadEmployeeData()
-        return
-    }
-    const selected = allEmployees.value[selectedEmployeeIndex.value]
-    const employeeNumber = selected ? selected.EmployeeNumber : null
-    loadEmployeeData(employeeNumber)
+    // No employees loaded yet; nothing to filter
 }
 
 
@@ -315,15 +295,15 @@ async function calculateHolidayPay(employee) {
         // Attach metrics to the employee and refresh the list reference to trigger reactivity
         const idx = employeesList.value.findIndex(e => e.EmployeeNumber === employee.EmployeeNumber)
         if (idx !== -1) {
-            employeesList.value[idx] = {
-                ...employeesList.value[idx],
+            payComponentsStore.employees[idx] = {
+                ...payComponentsStore.employees[idx],
                 _calcResults: metrics
             }
         }
-        const allIdx = allEmployees.value.findIndex(e => e.EmployeeNumber === employee.EmployeeNumber)
+        const allIdx = payComponentsStore.allEmployees.findIndex(e => e.EmployeeNumber === employee.EmployeeNumber)
         if (allIdx !== -1) {
-            allEmployees.value[allIdx] = {
-                ...allEmployees.value[allIdx],
+            payComponentsStore.allEmployees[allIdx] = {
+                ...payComponentsStore.allEmployees[allIdx],
                 _calcResults: metrics
             }
         }
